@@ -74,9 +74,14 @@ a { color: var(--copper); }
 .eyebrow { margin: 0 0 6px; color: var(--copper); font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
 .section h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1.25; margin: 0 0 32px; color: var(--navy); letter-spacing: -0.3px; }
 .section h3 { font-size: 1.1rem; line-height: 1.35; }
-.section-alt { max-width: none; background: #ece8e1; }
-.section-dark { max-width: none; background: var(--navy); color: #e4e7e9; }
-.section-alt > *, .section-dark > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
+/* Fond pleine largeur : contenu centré par le padding, aligné sur les sections blanches (max --max). */
+.section-alt, .section-dark {
+  max-width: none;
+  padding-left: max(24px, calc((100% - var(--max)) / 2 + 24px));
+  padding-right: max(24px, calc((100% - var(--max)) / 2 + 24px));
+}
+.section-alt { background: #ece8e1; }
+.section-dark { background: var(--navy); color: #e4e7e9; }
 .section-dark h2 { color: var(--gold-light); }
 .section-dark .eyebrow { color: var(--gold); }
 
@@ -152,7 +157,7 @@ a { color: var(--copper); }
   .topbar { padding: 10px 16px; }
   .topbar nav { gap: 10px; }
   .topbar nav a:not(.btn) { display: none; }
-  .section { padding: 52px 16px; }
+  .section, .section-alt, .section-dark { padding: 52px 16px; }
   .hero { padding: 44px 16px 40px; }
   .trust { grid-template-columns: auto; gap: 6px; }
 }
