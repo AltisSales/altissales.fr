@@ -1,8 +1,19 @@
 // Contact : formulaire de devis (enregistré dans le CRM ALTIS), e-mail et numéro affichés au clic.
-(function () {
+(() => {
   // Application Web du CRM (Google Apps Script) qui reçoit le formulaire.
   const endpoint = "https://script.google.com/macros/s/" +
     "AKfycbz1GV4N_X34Xch09_MTEreutfh-hVlmaRDlEsdObf5DVzdYNLvhGsOp02c1vYFNWenh/exec";
+
+  /** POST "simple" (formulaire encodé) : pas de pré-vérification CORS, que Google refuse. */
+  async function post(fields) {
+    const response = await fetch(endpoint, { method: "POST", body: new URLSearchParams(fields) });
+    const result = await response.json();
+    if (!result.ok) {
+      throw new Error(result.error || "Error");
+    }
+
+    return result;
+  }
 
   // Formulaire de devis dans une fenêtre
   const dialog = document.getElementById("quote-dialog");
@@ -10,43 +21,34 @@
   const status = form.querySelector(".form-status");
   const submit = form.querySelector("button[type=submit]");
 
-  document.querySelectorAll(".js-quote").forEach(function (button) {
-    button.addEventListener("click", function (event) {
+  document.querySelectorAll(".js-quote").forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
       dialog.showModal();
     });
   });
-  form.querySelector(".js-close").addEventListener("click", function () {
-    dialog.close();
-  });
-  dialog.addEventListener("click", function (event) {
+  form.querySelector(".js-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
       dialog.close();
     }
   });
 
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", async(event) => {
     event.preventDefault();
     submit.disabled = true;
-    status.textContent = "Envoi en cours…";
-    // Requête "simple" (formulaire encodé) : pas de pré-vérification CORS bloquée par Google.
-    fetch(endpoint, { method: "POST", body: new URLSearchParams(new FormData(form)) })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (result) {
-        if (!result.ok) {
-          throw new Error(result.error || "Erreur");
-        }
-        form.reset();
-        status.textContent = "Merci ! Votre demande est envoyée, nous revenons vers vous rapidement.";
-      })
-      .catch(function (error) {
-        status.textContent = "L'envoi a échoué (" + error.message + "). Réessayez dans un instant.";
-      })
-      .finally(function () {
-        submit.disabled = false;
-      });
+    status.textContent = "Sending…";
+    try {
+      await post(new FormData(form));
+      form.reset();
+      status.textContent = "Thank you! Your request has been sent. We will get back to you shortly.";
+    }
+    catch (error) {
+      status.textContent = `Sending failed (${error.message}). Please try again in a moment.`;
+    }
+    finally {
+      submit.disabled = false;
+    }
   });
 
   // Remplace un bouton par un lien (téléphone ou e-mail).
@@ -59,11 +61,9 @@
   }
 
   // E-mail des mentions légales : pas écrit en clair dans la page (limite la collecte par les robots).
-  const mail = ["quentin", "altissales.fr"];
-  document.querySelectorAll(".js-email").forEach(function (button) {
-    button.addEventListener("click", function () {
-      showLink(button, "mailto:" + mail.join("@"), mail.join("@"));
-    });
+  const mail = ["quentin", "altissales.fr"].join("@");
+  document.querySelectorAll(".js-email").forEach((button) => {
+    button.addEventListener("click", () => showLink(button, `mailto:${mail}`, mail));
   });
 
   /*
@@ -74,47 +74,26 @@
   const phoneDialog = document.getElementById("phone-dialog");
   const phoneResult = phoneDialog.querySelector(".phone-result");
   let widgetId = null;
-  let phoneButtons = [];
 
-  function showPhone(phone) {
-    phoneButtons.forEach(function (button) {
-      showLink(button, "tel:" + phone.replace(/\s/g, ""), phone);
-    });
-    phoneButtons = [];
-    phoneDialog.close();
-  }
-
-  function onCaptchaPassed(token) {
-    phoneResult.textContent = "Vérification…";
-    fetch(endpoint, { method: "POST", body: new URLSearchParams({ action: "phone", token: token }) })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (result) {
-        if (!result.ok) {
-          throw new Error(result.error || "Erreur");
-        }
-        showPhone(result.phone);
-      })
-      .catch(function (error) {
-        phoneResult.textContent = error.message;
-        window.turnstile.reset(widgetId);
+  async function onCaptchaPassed(token) {
+    phoneResult.textContent = "Checking…";
+    try {
+      const { phone } = await post({ action: "phone", token });
+      document.querySelectorAll(".js-phone").forEach((button) => {
+        showLink(button, `tel:${phone.replace(/\s/g, "")}`, phone);
       });
+      phoneDialog.close();
+    }
+    catch (error) {
+      phoneResult.textContent = error.message;
+      window.turnstile.reset(widgetId);
+    }
   }
-
-  document.querySelectorAll(".js-phone").forEach(function (button) {
-    button.addEventListener("click", function () {
-      phoneButtons = Array.from(document.querySelectorAll(".js-phone"));
-      phoneResult.textContent = "";
-      phoneDialog.showModal();
-      startCaptcha();
-    });
-  });
 
   // Le script Turnstile se charge en arrière-plan : on attend qu'il soit prêt.
   function startCaptcha() {
     if (!window.turnstile) {
-      phoneResult.textContent = "Chargement de la vérification…";
+      phoneResult.textContent = "Loading the check…";
       setTimeout(startCaptcha, 300);
 
       return;
@@ -123,7 +102,7 @@
     if (widgetId === null) {
       widgetId = window.turnstile.render("#phone-captcha", {
         sitekey: turnstileSiteKey,
-        language: "fr",
+        language: "en",
         callback: onCaptchaPassed
       });
     }
@@ -131,7 +110,12 @@
       window.turnstile.reset(widgetId);
     }
   }
-  phoneDialog.querySelector(".js-close").addEventListener("click", function () {
-    phoneDialog.close();
+
+  document.querySelectorAll(".js-phone").forEach((button) => {
+    button.addEventListener("click", () => {
+      phoneDialog.showModal();
+      startCaptcha();
+    });
   });
+  phoneDialog.querySelector(".js-close").addEventListener("click", () => phoneDialog.close());
 })();
