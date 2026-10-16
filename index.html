@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#14181b">
   <link rel="icon" type="image/png" href="assets/logo-mark.png">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=23">
+  <link rel="stylesheet" href="assets/style.css?v=25">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -306,7 +306,7 @@
           <p class="person-role">Founder, ALTIS SALES</p>
           <p class="person-line">I personally handle every request.</p>
         </div>
-        <a class="btn btn-ghost btn-linkedin" href="https://www.linkedin.com/in/q-altissales" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>Connect on LinkedIn</span></a>
+        <button type="button" class="btn btn-ghost btn-linkedin js-linkedin"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>Connect on LinkedIn</span></button>
       </div>
       <p class="contact-lines" data-reveal>
         <a class="btn js-quote" href="#contact" data-role="Buyer">I'm looking for a manufacturer</a>
@@ -321,7 +321,7 @@
   <footer class="footer">
     <img src="assets/logo-mark.png" alt="" width="28" height="24">
     <span>© 2026 ALTIS SALES France</span>
-    <a class="footer-linkedin" href="https://www.linkedin.com/in/q-altissales" target="_blank" rel="noopener" aria-label="ALTIS SALES on LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a>
+    <button type="button" class="footer-linkedin link-button js-linkedin" aria-label="ALTIS SALES on LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></button>
     <span class="credit">Photos: Daniel Smyth and Thirdman on <a href="https://www.pexels.com" rel="noopener">Pexels</a> · Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a></span>
     <details class="legal-notice">
       <summary>Legal notice &amp; privacy</summary>
@@ -342,8 +342,9 @@
           from the official French business register (annuaire-entreprises.data.gouv.fr). They are used only to answer
           your request and kept for no more than 3 years after the last contact. Your files are only shared with the
           manufacturers we introduce you to, under a non-disclosure agreement if you wish.
-          The "Show phone number" button uses Cloudflare Turnstile (Cloudflare, Inc.) to block automated access; it sets
-          no advertising cookies. You may access, correct or delete your data by email (see Contact above), and lodge a
+          The contact form and the "Show phone number" and LinkedIn buttons use Cloudflare Turnstile (Cloudflare, Inc.)
+          to block automated access; it is a security check and sets no advertising cookies. If you click the FR / EN switch,
+          your language choice is kept in your browser (local storage) and never sent to us. You may access, correct or delete your data by email (see Contact above), and lodge a
           complaint with the French data protection authority (CNIL, cnil.fr).
         </p>
       </div>
@@ -364,8 +365,9 @@
           informations publiques de l'annuaire officiel des entreprises (annuaire-entreprises.data.gouv.fr). Elles servent uniquement à
           répondre à votre demande et sont conservées au plus 3 ans après le dernier contact. Vos fichiers ne sont transmis qu'aux
           fabricants qui vous sont présentés, sous accord de confidentialité si vous le souhaitez.
-          Le bouton « Afficher le téléphone » utilise Cloudflare Turnstile (Cloudflare, Inc.) pour bloquer les robots ; il ne dépose aucun
-          cookie publicitaire. Vous pouvez accéder à vos données, les corriger ou les supprimer par e-mail (voir Contact ci-dessus), et
+          Le formulaire et les boutons « Afficher le téléphone » et LinkedIn utilisent Cloudflare Turnstile (Cloudflare, Inc.) pour
+          bloquer les robots ; c'est une vérification de sécurité, sans cookie publicitaire. Si vous utilisez le bouton FR / EN, votre
+          choix de langue est conservé dans votre navigateur (stockage local) et ne nous est jamais transmis. Vous pouvez accéder à vos données, les corriger ou les supprimer par e-mail (voir Contact ci-dessus), et
           adresser une réclamation à la CNIL (cnil.fr).
         </p>
       </div>
@@ -389,6 +391,7 @@
       <label><span class="js-need-label">Your need</span><textarea name="besoin" rows="3" maxlength="2000" placeholder="Part type, material, quantity, target lead time…"></textarea></label>
       <input type="text" name="website" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="form-note">You can send drawings, 3D models or your company presentation in reply to our email. Your details are used only to answer your request.</p>
+      <div id="form-captcha" class="form-captcha"></div>
       <button type="submit" class="btn">Send</button>
       <p class="form-status" role="status"></p>
     </form>
@@ -404,9 +407,20 @@
     </div>
   </dialog>
 
+  <dialog id="linkedin-dialog" class="quote-dialog">
+    <div class="quote-form">
+      <button type="button" class="dialog-close js-close" aria-label="Close">×</button>
+      <h2>LinkedIn profile</h2>
+      <p class="form-intro">A quick check against bots, then the link to the profile appears.</p>
+      <div id="linkedin-captcha"></div>
+      <a class="btn js-linkedin-open" href="#" target="_blank" rel="noopener" hidden>Open the LinkedIn profile</a>
+      <p class="form-status linkedin-result" role="status"></p>
+    </div>
+  </dialog>
+
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <script src="assets/motion.js?v=6"></script>
-  <script src="assets/i18n.js?v=1"></script>
-  <script src="assets/contact.js?v=6"></script>
+  <script src="assets/i18n.js?v=2"></script>
+  <script src="assets/contact.js?v=7"></script>
 </body>
 </html>

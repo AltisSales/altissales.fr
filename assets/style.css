@@ -488,3 +488,9 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
   .person .btn-linkedin { margin: 4px auto 0; }
 }
 @media (max-width: 760px) { .route-controls { gap: 6px; flex-wrap: nowrap; } .route-btn { padding: 7px 11px; font-size: 0.78rem; white-space: nowrap; } }
+
+/* Captchas : formulaire et LinkedIn */
+.form-captcha { min-height: 65px; }
+.footer-linkedin.link-button { text-decoration: none; font-size: inherit; }
+.js-linkedin-open { align-self: flex-start; }
+.js-linkedin-open[hidden] { display: none; }

@@ -179,6 +179,11 @@
     "Please try again in a moment.": "Réessayez dans un instant.",
     "Checking…": "Vérification…",
     "Loading the check…": "Chargement de la vérification…",
+    "Please complete the check above the Send button.": "Merci de valider la vérification au-dessus du bouton Envoyer.",
+    "LinkedIn profile": "Profil LinkedIn",
+    "A quick check against bots, then the link to the profile appears.": "Une vérification rapide contre les robots, puis le lien vers le profil s'affiche.",
+    "Open the LinkedIn profile": "Ouvrir le profil LinkedIn",
+    "LinkedIn": "LinkedIn",
     // Attributs (aria-label, alt, title)
     "Close": "Fermer",
     "Previous stage": "Étape précédente",
@@ -229,7 +234,7 @@
   window.altisOnLang = (callback) => listeners.push(callback);
 
   const toggle = document.querySelector(".lang-switch");
-  function apply(lang) {
+  function apply(lang, remember) {
     current = lang;
     document.documentElement.lang = lang;
     nodes.forEach((item) => { item.node.nodeValue = item[lang]; });
@@ -238,6 +243,10 @@
     document.querySelector("meta[name=description]")?.setAttribute("content", meta[lang].description);
     toggle?.setAttribute("aria-checked", String(lang === "fr"));
     listeners.forEach((callback) => callback(lang));
+    if (!remember) {
+      return;
+    }
+    // Préférence choisie par le visiteur (exemptée de consentement par la CNIL) ; rien n'est envoyé au serveur.
     try {
       localStorage.setItem("altis-lang", lang);
     }
@@ -257,5 +266,5 @@
   if (initial === "fr") {
     apply("fr");
   }
-  toggle?.addEventListener("click", () => apply(current === "fr" ? "en" : "fr"));
+  toggle?.addEventListener("click", () => apply(current === "fr" ? "en" : "fr", true));
 })();

@@ -1,10 +1,13 @@
-// Contact : formulaire de devis (enregistré dans le CRM ALTIS), e-mail et numéro affichés au clic.
+// Contact : formulaire (enregistré dans le CRM ALTIS), e-mail, numéro et lien LinkedIn affichés au clic.
+// Formulaire, numéro et LinkedIn passent par un captcha Cloudflare Turnstile, vérifié côté CRM.
 (() => {
   // Traduction des messages (assets/i18n.js) ; sans ce script, les textes restent en anglais.
   const t = (text) => (window.altisT ? window.altisT(text) : text);
   // Application Web du CRM (Google Apps Script) qui reçoit le formulaire.
   const endpoint = "https://script.google.com/macros/s/" +
     "AKfycbz1GV4N_X34Xch09_MTEreutfh-hVlmaRDlEsdObf5DVzdYNLvhGsOp02c1vYFNWenh/exec";
+  // Clé publique du site (la clé secrète est dans le CRM uniquement).
+  const turnstileSiteKey = "0x4AAAAAAFVDYnf6nr2fTu6Y";
 
   /** POST "simple" (formulaire encodé) : pas de pré-vérification CORS, que Google refuse. */
   async function post(fields) {
@@ -17,11 +20,60 @@
     return result;
   }
 
-  // Formulaire de devis dans une fenêtre
+  /**
+   * Captcha Turnstile dans un conteneur. Le script Cloudflare se charge en arrière-plan : on attend qu'il soit prêt.
+   * onToken reçoit le jeton (à usage unique) ; reset() en redemande un après chaque envoi.
+   */
+  function captcha(selector, onToken, statusElement) {
+    let widgetId = null;
+    let token = "";
+    const start = () => {
+      if (!window.turnstile) {
+        if (statusElement) {
+          statusElement.textContent = t("Loading the check…");
+        }
+        setTimeout(start, 300);
+
+        return;
+      }
+      if (statusElement && statusElement.textContent === t("Loading the check…")) {
+        statusElement.textContent = "";
+      }
+      if (widgetId === null) {
+        widgetId = window.turnstile.render(selector, {
+          sitekey: turnstileSiteKey,
+          language: window.altisLang?.() === "fr" ? "fr" : "en",
+          callback: (value) => {
+            token = value;
+            onToken?.(value);
+          },
+          "expired-callback": () => {
+            token = "";
+          }
+        });
+      }
+    };
+
+    return {
+      start,
+      token: () => token,
+      reset: () => {
+        token = "";
+        if (widgetId !== null) {
+          window.turnstile.reset(widgetId);
+        }
+      }
+    };
+  }
+
+  // ---------- Formulaire dans une fenêtre ----------
   const dialog = document.getElementById("quote-dialog");
   const form = document.getElementById("quote-form");
   const status = form.querySelector(".form-status");
   const submit = form.querySelector("button[type=submit]");
+  const formCaptcha = captcha("#form-captcha", () => {
+    status.textContent = "";
+  }, status);
 
   // Acheteur ou fabricant : le bouton cliqué présélectionne le profil, le libellé du besoin suit.
   const needLabel = form.querySelector(".js-need-label");
@@ -43,6 +95,7 @@
       }
       showRole(form.elements.profil.value);
       dialog.showModal();
+      formCaptcha.start();
     });
   });
   form.querySelector(".js-close").addEventListener("click", () => dialog.close());
@@ -54,6 +107,12 @@
 
   form.addEventListener("submit", async(event) => {
     event.preventDefault();
+    const token = formCaptcha.token();
+    if (!token) {
+      status.textContent = t("Please complete the check above the Send button.");
+
+      return;
+    }
     submit.disabled = true;
     status.textContent = t("Sending…");
     try {
@@ -61,7 +120,9 @@
       const fields = new FormData(form);
       const role = fields.get("profil") === "Manufacturer" ? "[Manufacturer]" : "[Buyer]";
       fields.delete("profil");
+      fields.delete("cf-turnstile-response");
       fields.set("besoin", `${role} ${fields.get("besoin") ?? ""}`.trim());
+      fields.set("token", token);
       await post(fields);
       form.reset();
       status.textContent = t("Thank you! Your request has been sent. We will get back to you shortly.");
@@ -71,6 +132,8 @@
     }
     finally {
       submit.disabled = false;
+      // Un jeton ne sert qu'une fois : nouveau captcha pour un éventuel second envoi.
+      formCaptcha.reset();
     }
   });
 
@@ -89,16 +152,10 @@
     button.addEventListener("click", () => showLink(button, `mailto:${mail}`, mail));
   });
 
-  /*
-   * Numéro : absent du code du site. Après le captcha Cloudflare Turnstile, le CRM vérifie le jeton
-   * et renvoie le numéro. Clé publique du site (la clé secrète est dans le CRM uniquement).
-   */
-  const turnstileSiteKey = "0x4AAAAAAFVDYnf6nr2fTu6Y";
+  // ---------- Numéro : absent du code du site, renvoyé par le CRM après le captcha ----------
   const phoneDialog = document.getElementById("phone-dialog");
   const phoneResult = phoneDialog.querySelector(".phone-result");
-  let widgetId = null;
-
-  async function onCaptchaPassed(token) {
+  const phoneCaptcha = captcha("#phone-captcha", async(token) => {
     phoneResult.textContent = t("Checking…");
     try {
       const { phone } = await post({ action: "phone", token });
@@ -109,36 +166,43 @@
     }
     catch (error) {
       phoneResult.textContent = error.message;
-      window.turnstile.reset(widgetId);
+      phoneCaptcha.reset();
     }
-  }
-
-  // Le script Turnstile se charge en arrière-plan : on attend qu'il soit prêt.
-  function startCaptcha() {
-    if (!window.turnstile) {
-      phoneResult.textContent = t("Loading the check…");
-      setTimeout(startCaptcha, 300);
-
-      return;
-    }
-    phoneResult.textContent = "";
-    if (widgetId === null) {
-      widgetId = window.turnstile.render("#phone-captcha", {
-        sitekey: turnstileSiteKey,
-        language: window.altisLang?.() === "fr" ? "fr" : "en",
-        callback: onCaptchaPassed
-      });
-    }
-    else {
-      window.turnstile.reset(widgetId);
-    }
-  }
-
+  }, phoneResult);
   document.querySelectorAll(".js-phone").forEach((button) => {
     button.addEventListener("click", () => {
       phoneDialog.showModal();
-      startCaptcha();
+      phoneCaptcha.start();
     });
   });
   phoneDialog.querySelector(".js-close").addEventListener("click", () => phoneDialog.close());
+
+  // ---------- LinkedIn : lien absent du code du site, renvoyé par le CRM après le captcha ----------
+  const linkedinDialog = document.getElementById("linkedin-dialog");
+  const linkedinResult = linkedinDialog.querySelector(".linkedin-result");
+  const linkedinOpen = linkedinDialog.querySelector(".js-linkedin-open");
+  const linkedinCaptcha = captcha("#linkedin-captcha", async(token) => {
+    linkedinResult.textContent = t("Checking…");
+    try {
+      const { url } = await post({ action: "linkedin", token });
+      if (!String(url).startsWith("https://www.linkedin.com/")) {
+        throw new Error("Error");
+      }
+      linkedinResult.textContent = "";
+      linkedinOpen.href = url;
+      linkedinOpen.hidden = false;
+    }
+    catch (error) {
+      linkedinResult.textContent = error.message;
+      linkedinCaptcha.reset();
+    }
+  }, linkedinResult);
+  document.querySelectorAll(".js-linkedin").forEach((button) => {
+    button.addEventListener("click", () => {
+      linkedinDialog.showModal();
+      linkedinCaptcha.start();
+    });
+  });
+  linkedinOpen.addEventListener("click", () => linkedinDialog.close());
+  linkedinDialog.querySelector(".js-close").addEventListener("click", () => linkedinDialog.close());
 })();
