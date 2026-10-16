@@ -659,15 +659,6 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
 .how-altis .how-ring { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 9 9; transform-box: fill-box; transform-origin: center; animation: spin 18s linear infinite; filter: none; }
 @media (prefers-reduced-motion: reduce) { .how-altis .how-ring { animation: none; } }
 
-/* Fond "How it works" v3 : photo NASA de la Terre de nuit (Unsplash), voile marine pour la lisibilité */
-.how {
-  background:
-    radial-gradient(ellipse 26% 22% at 50% 30%, rgba(226, 191, 134, 0.16), transparent 70%),
-    linear-gradient(180deg, rgba(10, 13, 16, 0.92) 0%, rgba(10, 13, 16, 0.55) 38%, rgba(10, 13, 16, 0.35) 70%, rgba(10, 13, 16, 0.7) 100%),
-    url("earth-night.webp") center 20% / cover no-repeat,
-    #0a0d10;
-}
-.how::before, .how::after { display: none; }
 
 /* "How it works" v4 : processus sur un vrai cercle ; fond = quadrillage "plan" de l'accroche + halo derrière le A */
 .how {

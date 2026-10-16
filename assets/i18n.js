@@ -168,7 +168,6 @@
     "Show phone number": "Afficher le téléphone",
     // Pied de page, mentions légales
     "Photos: Daniel Smyth and Thirdman on": "Photos : Daniel Smyth et Thirdman sur",
-    ", NASA on": ", NASA sur",
     "· Icons:": "· Icônes :",
     "Legal notice & privacy": "Mentions légales & confidentialité",
     // Formulaires
