@@ -87,7 +87,7 @@
     "industrial manufacturers, maintenance": "industriels, maintenance",
     // Fonctionnement
     "Four stops from your need to an agreement": "Quatre étapes, de votre besoin à l'accord",
-    "Three sides, one agreement": "Trois côtés, un accord",
+    "Three sides, one agreement": "Trois parties, un accord",
     "Checked manufacturers": "Fabricants vérifiés",
     "Independent business introducer": "Apporteur d'affaires indépendant",
     "Selects & checks manufacturers": "Sélectionne & vérifie les fabricants",
