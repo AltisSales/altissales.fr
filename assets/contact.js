@@ -1,5 +1,7 @@
 // Contact : formulaire de devis (enregistré dans le CRM ALTIS), e-mail et numéro affichés au clic.
 (() => {
+  // Traduction des messages (assets/i18n.js) ; sans ce script, les textes restent en anglais.
+  const t = (text) => (window.altisT ? window.altisT(text) : text);
   // Application Web du CRM (Google Apps Script) qui reçoit le formulaire.
   const endpoint = "https://script.google.com/macros/s/" +
     "AKfycbz1GV4N_X34Xch09_MTEreutfh-hVlmaRDlEsdObf5DVzdYNLvhGsOp02c1vYFNWenh/exec";
@@ -21,9 +23,25 @@
   const status = form.querySelector(".form-status");
   const submit = form.querySelector("button[type=submit]");
 
+  // Acheteur ou fabricant : le bouton cliqué présélectionne le profil, le libellé du besoin suit.
+  const needLabel = form.querySelector(".js-need-label");
+  const need = form.elements.besoin;
+  function showRole(role) {
+    const maker = role === "Manufacturer";
+    needLabel.textContent = t(maker ? "Your capabilities" : "Your need");
+    need.placeholder = t(maker ? "Processes, machines, materials, certifications, export experience…" : "Part type, material, quantity, target lead time…");
+  }
+  window.altisOnLang?.(() => showRole(form.elements.profil.value));
+  form.querySelectorAll("input[name=profil]").forEach((radio) => radio.addEventListener("change", () => showRole(radio.value)));
+
   document.querySelectorAll(".js-quote").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
+      const role = button.dataset.role;
+      if (role) {
+        form.querySelector(`input[name=profil][value=${role}]`).checked = true;
+      }
+      showRole(form.elements.profil.value);
       dialog.showModal();
     });
   });
@@ -37,14 +55,19 @@
   form.addEventListener("submit", async(event) => {
     event.preventDefault();
     submit.disabled = true;
-    status.textContent = "Sending…";
+    status.textContent = t("Sending…");
     try {
-      await post(new FormData(form));
+      // Le CRM reçoit les mêmes champs qu'avant : le profil est ajouté en tête du besoin.
+      const fields = new FormData(form);
+      const role = fields.get("profil") === "Manufacturer" ? "[Manufacturer]" : "[Buyer]";
+      fields.delete("profil");
+      fields.set("besoin", `${role} ${fields.get("besoin") ?? ""}`.trim());
+      await post(fields);
       form.reset();
-      status.textContent = "Thank you! Your request has been sent. We will get back to you shortly.";
+      status.textContent = t("Thank you! Your request has been sent. We will get back to you shortly.");
     }
     catch (error) {
-      status.textContent = `Sending failed (${error.message}). Please try again in a moment.`;
+      status.textContent = `${t("Sending failed")} (${error.message}). ${t("Please try again in a moment.")}`;
     }
     finally {
       submit.disabled = false;
@@ -76,7 +99,7 @@
   let widgetId = null;
 
   async function onCaptchaPassed(token) {
-    phoneResult.textContent = "Checking…";
+    phoneResult.textContent = t("Checking…");
     try {
       const { phone } = await post({ action: "phone", token });
       document.querySelectorAll(".js-phone").forEach((button) => {
@@ -93,7 +116,7 @@
   // Le script Turnstile se charge en arrière-plan : on attend qu'il soit prêt.
   function startCaptcha() {
     if (!window.turnstile) {
-      phoneResult.textContent = "Loading the check…";
+      phoneResult.textContent = t("Loading the check…");
       setTimeout(startCaptcha, 300);
 
       return;
@@ -102,7 +125,7 @@
     if (widgetId === null) {
       widgetId = window.turnstile.render("#phone-captcha", {
         sitekey: turnstileSiteKey,
-        language: "en",
+        language: window.altisLang?.() === "fr" ? "fr" : "en",
         callback: onCaptchaPassed
       });
     }

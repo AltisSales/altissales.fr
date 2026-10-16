@@ -3,205 +3,393 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ALTIS SALES — Independent industrial sourcing: CNC parts, mold components, tooling</title>
-  <meta name="description" content="ALTIS SALES is an independent industrial sourcing company. We identify and coordinate qualified manufacturers for precision CNC machined parts, mold components and custom tooling, from drawing to delivery.">
+  <title>ALTIS SALES — Industrial business introducer: buyers and manufacturers of CNC parts, mold components, tooling</title>
+  <meta name="description" content="ALTIS SALES is an independent industrial business introducer. We connect European buyers with qualified manufacturers of CNC machined parts, mold components and tooling, and mediate until they agree.">
+  <meta property="og:title" content="ALTIS SALES — Connecting industrial buyers with the right manufacturers">
+  <meta property="og:description" content="Independent business introducer for CNC parts, mold components and tooling: we find, check and introduce manufacturers, then mediate until you agree.">
+  <meta property="og:image" content="https://altissales.fr/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:url" content="https://altissales.fr/">
+  <meta name="theme-color" content="#14181b">
   <link rel="icon" type="image/png" href="assets/logo-mark.png">
-  <link rel="stylesheet" href="assets/style.css?v=5">
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/style.css?v=23">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#"><img src="assets/logo-mark.png" alt="" width="40" height="34"><span>ALTIS <em>SALES</em></span></a>
     <nav>
-      <a href="#sourcing">What we source</a>
-      <a href="#approach">How we work</a>
+      <a href="#sides">Buyers &amp; manufacturers</a>
+      <a href="#approach">How it works</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact" class="btn btn-small js-quote">Request a quote</a>
+      <a href="#contact" class="btn btn-small js-quote">Contact us</a>
+      <button type="button" class="lang-switch" role="switch" aria-checked="false" aria-label="Français / English" title="Français / English">
+        <span class="lang-opt">EN</span><span class="lang-opt">FR</span><span class="lang-knob" aria-hidden="true"></span>
+      </button>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <img class="hero-logo" src="assets/logo-mark.png" alt="ALTIS SALES" width="150" height="128">
-      <p class="kicker">Independent industrial sourcing</p>
-      <h1>Your CNC &amp; Industrial Sourcing Partner</h1>
-      <p class="lead">We connect you with qualified manufacturers and coordinate your projects from drawing to delivery.</p>
-      <div class="cta">
-        <a href="#contact" class="btn js-quote">Request a quote</a>
-        <a href="#approach" class="btn btn-ghost">How we work</a>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="kicker">Independent industrial business introducer</p>
+          <h1>We connect industrial buyers with the <span class="shine">right manufacturers</span></h1>
+          <p class="lead">CNC machined parts, mold components and tooling: we find and check the manufacturer, introduce you, and mediate until you agree. You then work directly together.</p>
+          <div class="cta">
+            <a href="#contact" class="btn js-quote" data-role="Buyer">I'm looking for a manufacturer</a>
+            <a href="#contact" class="btn btn-ghost js-quote" data-role="Manufacturer">I'm a manufacturer</a>
+          </div>
+          <ul class="trust">
+            <li>Not a manufacturer, not a reseller</li>
+            <li>Direct contract between you</li>
+            <li>NDA on request</li>
+            <li>French &amp; English</li>
+          </ul>
+        </div>
+
+        <!-- Buyers on the left, manufacturers on the right, ALTIS SALES in the middle: the links light up in turn. -->
+        <figure class="hero-network" aria-hidden="true">
+          <svg viewBox="0 0 440 360" role="presentation">
+            <g class="links">
+              <path d="M78 70 C150 70 160 180 220 180" pathLength="1"/>
+              <path d="M78 180 C150 180 160 180 220 180" pathLength="1"/>
+              <path d="M78 290 C150 290 160 180 220 180" pathLength="1"/>
+              <path d="M220 180 C280 180 290 70 362 70" pathLength="1"/>
+              <path d="M220 180 C280 180 290 180 362 180" pathLength="1"/>
+              <path d="M220 180 C280 180 290 290 362 290" pathLength="1"/>
+            </g>
+            <g class="pulses">
+              <circle r="4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="0s" path="M78 70 C150 70 160 180 220 180 C280 180 290 180 362 180"/></circle>
+              <circle r="4"><animateMotion dur="3.8s" repeatCount="indefinite" begin="0s" path="M78 290 C150 290 160 180 220 180 C280 180 290 70 362 70"/></circle>
+              <circle r="4"><animateMotion dur="4.4s" repeatCount="indefinite" begin="0s" path="M362 290 C290 290 280 180 220 180 C160 180 150 180 78 180"/></circle>
+            </g>
+            <g class="node buyer"><circle cx="58" cy="70" r="20"/><circle cx="58" cy="180" r="20"/><circle cx="58" cy="290" r="20"/></g>
+            <g class="node maker"><rect x="342" y="50" width="40" height="40" rx="8"/><rect x="342" y="160" width="40" height="40" rx="8"/><rect x="342" y="270" width="40" height="40" rx="8"/></g>
+            <g class="hub"><circle cx="220" cy="180" r="44" class="hub-ring"/><circle cx="220" cy="180" r="34"/></g>
+            <image href="assets/logo-mark.png" x="196" y="160" width="48" height="41"/>
+            <text x="58" y="336">BUYERS</text>
+            <text x="362" y="336">MANUFACTURERS</text>
+          </svg>
+          <figcaption>We find, check and introduce. You agree directly.</figcaption>
+        </figure>
       </div>
-      <ul class="trust">
-        <li>Independent, not tied to any manufacturer</li>
-        <li>NDA available on request</li>
-        <li>Sample approval before production</li>
-        <li>One point of contact in Europe</li>
-      </ul>
     </section>
 
-    <section id="sourcing" class="section">
-      <p class="eyebrow">What we source</p>
-      <h2>Components built to your requirements</h2>
-      <div class="cards">
-        <article class="card">
+    <div class="ticker" aria-label="What ALTIS SALES does">
+      <ul class="ticker-track">
+        <li>Business introduction</li><li>Buyers ↔ manufacturers</li><li>Manufacturer search</li><li>Checked before any introduction</li>
+        <li>Second source</li><li>Mediation until you agree</li><li>Direct contracts between you</li>
+        <li>Commission only on business brought</li><li>NDA on request</li><li>Independent</li><li>French &amp; English</li>
+      </ul>
+    </div>
+
+    <section id="sides" class="section">
+      <p class="eyebrow" data-reveal>Two sides, one introducer</p>
+      <h2 data-reveal>What we do for each side</h2>
+      <div class="sides">
+        <article class="side" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/><path d="m16 16-1.9-1.9"/></svg>
+          <h3>For buyers</h3>
+          <ul>
+            <li>Manufacturers matched to your parts, including a second source</li>
+            <li>Checked before any introduction</li>
+            <li>Help on drawings, quantities, tolerances and lead times</li>
+            <li>Quotation and order directly with the manufacturer</li>
+          </ul>
+          <a href="#contact" class="btn js-quote" data-role="Buyer">Describe your need</a>
+        </article>
+        <article class="side side-dark" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg>
+          <h3>For manufacturers</h3>
+          <ul>
+            <li>Your capabilities presented to European buyers</li>
+            <li>Qualified requests with drawings and key requirements</li>
+            <li>Support until the order is agreed</li>
+            <li>Commission agreed in advance, only on business we bring</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost js-quote" data-role="Manufacturer">Present your company</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-photo">
+      <p class="eyebrow" data-reveal>Fields we cover</p>
+      <h2 data-reveal>Click a field to see what's inside</h2>
+      <div class="fields" data-reveal>
+        <div class="field-tabs" role="tablist" aria-label="Fields we cover">
+          <button type="button" role="tab" id="tab-cnc" aria-controls="panel-cnc" aria-selected="true" tabindex="0"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg><span>CNC machined parts</span></button>
+          <button type="button" role="tab" id="tab-mold" aria-controls="panel-mold" aria-selected="false" tabindex="-1"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span>Mold components</span></button>
+          <button type="button" role="tab" id="tab-tool" aria-controls="panel-tool" aria-selected="false" tabindex="-1"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Tooling &amp; special parts</span></button>
+        </div>
+        <div class="field-panel" role="tabpanel" id="panel-cnc" aria-labelledby="tab-cnc">
           <h3>Precision CNC machined parts</h3>
-          <p>Milled and turned parts made to your drawings, from prototypes to production runs.</p>
-        </article>
-        <article class="card">
+          <p>Milled and turned parts to drawing, from prototypes to series.</p>
+          <div class="field-lists">
+            <div><h4>Typical parts</h4><ul><li>Shafts, axles, pins</li><li>Housings, plates, brackets</li><li>Flanges, rings, bushings</li></ul></div>
+            <div><h4>Processes &amp; materials</h4><ul><li>Milling 3–5 axes, turning</li><li>Aluminium, steel, stainless, brass, titanium</li><li>POM, PA, PEEK</li></ul></div>
+          </div>
+          <p class="field-who"><strong>For:</strong> machine builders, engineering, maintenance</p>
+          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
+        </div>
+        <div class="field-panel" role="tabpanel" id="panel-mold" aria-labelledby="tab-mold">
           <h3>Mold components &amp; standard parts</h3>
-          <p>Standardized mold and tooling components, including parts compatible with widely used industry standards.</p>
-        </article>
-        <article class="card">
-          <h3>Custom tooling &amp; special components</h3>
-          <p>Tooling, inserts, spare parts and specialized components, produced from drawings, 3D models or samples.</p>
-        </article>
+          <p>Mold and tooling components, compatible with common catalog standards.</p>
+          <div class="field-lists">
+            <div><h4>Typical parts</h4><ul><li>Ejector pins and sleeves</li><li>Guide pillars and bushings</li><li>Inserts, cores, centering rings</li></ul></div>
+            <div><h4>Processes &amp; materials</h4><ul><li>Hardened tool steels</li><li>Precision grinding</li><li>Small series, replacements</li></ul></div>
+          </div>
+          <p class="field-who"><strong>For:</strong> mold makers, plastics processors</p>
+          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
+        </div>
+        <div class="field-panel" role="tabpanel" id="panel-tool" aria-labelledby="tab-tool">
+          <h3>Custom tooling &amp; special parts</h3>
+          <p>Tooling, spare and special parts from a drawing, a 3D model or a sample.</p>
+          <div class="field-lists">
+            <div><h4>Typical parts</h4><ul><li>Fixtures, jigs, gauges</li><li>Wear and spare parts</li><li>Parts copied from a sample</li></ul></div>
+            <div><h4>Processes &amp; materials</h4><ul><li>Machining, grinding, treatments</li><li>Single parts to small series</li><li>Reverse engineering</li></ul></div>
+          </div>
+          <p class="field-who"><strong>For:</strong> industrial manufacturers, maintenance</p>
+          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
+        </div>
       </div>
     </section>
 
-    <section class="section section-alt">
-      <p class="eyebrow">Our services</p>
-      <h2>More than finding a supplier</h2>
-      <ul class="services">
-        <li>
-          <h3>Supplier identification &amp; diversification</h3>
-          <p>We look for manufacturers whose capabilities fit your part, and help you build a second source alongside your existing suppliers.</p>
-        </li>
-        <li>
-          <h3>International procurement coordination</h3>
-          <p>We handle supplier communication, quotations and technical clarifications, so your team keeps a single, reliable contact.</p>
-        </li>
-        <li>
-          <h3>Manufacturing project follow-up</h3>
-          <p>We follow your order through sampling, production, pre-shipment checks and delivery, and keep you informed at each step.</p>
-        </li>
-      </ul>
+    <!-- The route: from the buyer to the manufacturer, four stops; each stop shows who does what. -->
+    <section id="approach" class="section section-dark">
+      <p class="eyebrow" data-reveal>How it works</p>
+      <h2 data-reveal>Four stops from your need to an agreement</h2>
+      <div class="route" data-reveal>
+        <div class="route-map">
+          <svg class="route-svg" viewBox="0 0 1000 260" aria-hidden="true">
+            <path class="road-bed" d="M110 150 C210 40 300 40 370 120 S520 230 610 140 S780 40 890 150"/>
+            <path id="road" class="road" d="M110 150 C210 40 300 40 370 120 S520 230 610 140 S780 40 890 150" pathLength="1"/>
+            <circle class="traveller" r="8" cx="110" cy="150"/>
+            <g class="end end-buyer"><circle cx="70" cy="150" r="40"/><svg x="50" y="130" width="40" height="40" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></g>
+            <g class="end end-maker"><circle cx="930" cy="150" r="40"/><svg x="910" y="130" width="40" height="40" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg></g>
+            <text x="70" y="218">BUYER</text>
+            <text x="930" y="218">MANUFACTURER</text>
+          </svg>
+          <div class="stops" role="tablist" aria-label="Stages">
+            <button type="button" class="stop" role="tab" id="stop-1" aria-controls="stage-1" aria-selected="true" tabindex="0" data-at="0.17">
+              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span><span class="stop-label"><b>1</b> Request</span>
+            </button>
+            <button type="button" class="stop" role="tab" id="stop-2" aria-controls="stage-2" aria-selected="false" tabindex="-1" data-at="0.4">
+              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="stop-label"><b>2</b> Selection</span>
+            </button>
+            <button type="button" class="stop" role="tab" id="stop-3" aria-controls="stage-3" aria-selected="false" tabindex="-1" data-at="0.62">
+              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></span><span class="stop-label"><b>3</b> Introduction</span>
+            </button>
+            <button type="button" class="stop" role="tab" id="stop-4" aria-controls="stage-4" aria-selected="false" tabindex="-1" data-at="0.84">
+              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></span><span class="stop-label"><b>4</b> Agreement</span>
+            </button>
+          </div>
+        </div>
+        <div class="stage-card" role="tabpanel" id="stage-1" aria-labelledby="stop-1">
+          <h3><b>1</b> Request</h3>
+          <p class="who"><span>Buyer</span>Sends drawings, quantities, lead time</p>
+          <p class="who altis"><span>ALTIS SALES</span>Clarifies the need, NDA if wanted</p>
+          <p class="who none"><span>Manufacturer</span>—</p>
+        </div>
+        <div class="stage-card" role="tabpanel" id="stage-2" aria-labelledby="stop-2">
+          <h3><b>2</b> Selection</h3>
+          <p class="who none"><span>Buyer</span>—</p>
+          <p class="who altis"><span>ALTIS SALES</span>Selects and checks manufacturers</p>
+          <p class="who"><span>Manufacturer</span>Shares capabilities and references</p>
+        </div>
+        <div class="stage-card" role="tabpanel" id="stage-3" aria-labelledby="stop-3">
+          <h3><b>3</b> Introduction</h3>
+          <p class="who"><span>Buyer</span>Meets the manufacturer</p>
+          <p class="who altis"><span>ALTIS SALES</span>Puts you in touch, shares the files</p>
+          <p class="who"><span>Manufacturer</span>Quotes the buyer directly</p>
+        </div>
+        <div class="stage-card" role="tabpanel" id="stage-4" aria-labelledby="stop-4">
+          <h3><b>4</b> Agreement</h3>
+          <p class="who"><span>Buyer</span>Orders and pays the manufacturer</p>
+          <p class="who altis"><span>ALTIS SALES</span>Mediates until you agree</p>
+          <p class="who"><span>Manufacturer</span>Produces, invoices, delivers</p>
+        </div>
+        <div class="route-controls">
+          <button type="button" class="route-btn js-prev" aria-label="Previous stage">← Previous</button>
+          <button type="button" class="route-btn js-replay">Replay the route</button>
+          <button type="button" class="route-btn js-next" aria-label="Next stage">Next →</button>
+        </div>
+      </div>
     </section>
 
     <section class="section">
-      <p class="eyebrow">Why a second source</p>
-      <h2>Reduce dependency, keep control</h2>
-      <ul class="why">
-        <li><strong>Secure your supply</strong><br>Avoid relying on a single supplier for critical parts.</li>
-        <li><strong>Compare your costs</strong><br>Benchmark your current prices against alternative manufacturers.</li>
-        <li><strong>Absorb peak demand</strong><br>Add capacity when your usual suppliers are fully booked.</li>
-        <li><strong>Stay in control</strong><br>Clear communication, documented quality steps, one contact.</li>
-      </ul>
-    </section>
-
-    <section id="approach" class="section section-dark">
-      <p class="eyebrow">How we work</p>
-      <h2>A clear process, from request to delivery</h2>
-      <ol class="steps">
-        <li><span>1</span><h3>Share your requirements</h3><p>Drawings, 3D models, photos or samples, with material, quantities and target lead time.</p></li>
-        <li><span>2</span><h3>We identify manufacturers</h3><p>Feasibility review and itemized quotation from suitable partners, with no obligation.</p></li>
-        <li><span>3</span><h3>Sample &amp; approval</h3><p>A first article or sample is checked and approved by you before production starts.</p></li>
-        <li><span>4</span><h3>Follow-up &amp; delivery</h3><p>Production follow-up, pre-shipment inspection and delivery to your site.</p></li>
-      </ol>
-    </section>
-
-    <section id="about" class="section">
-      <div class="about">
+      <div class="files" data-reveal>
         <div>
-          <p class="eyebrow">About ALTIS SALES</p>
-          <h2>An independent sourcing partner</h2>
-          <p>ALTIS SALES is an independent industrial sourcing company based in France. <strong>We are not a manufacturer</strong> and we are not exclusively tied to any factory.</p>
-          <p>For each request, we select manufacturing partners according to your technical specifications, production quantities, commercial objectives and delivery expectations, and we coordinate the project on your behalf.</p>
-          <p>We work primarily with industrial companies across Europe, and support international projects.</p>
+          <p class="eyebrow">Start with what you have</p>
+          <h2>A drawing, a 3D model or a sample is enough</h2>
+          <p>Shared only with the manufacturers we introduce you to.</p>
         </div>
-        <div class="audience">
+        <ul class="chips">
+          <li>PDF</li><li>DWG / DXF</li><li>STEP</li><li>IGES</li><li>STL</li><li>SolidWorks</li><li>Photos</li><li>Sample</li>
+        </ul>
+        <a href="#contact" class="btn js-quote" data-role="Buyer">Send my request</a>
+      </div>
+    </section>
+
+    <section id="about" class="section section-alt">
+      <div class="about">
+        <div data-reveal>
+          <p class="eyebrow">About ALTIS SALES</p>
+          <h2>An independent business introducer</h2>
+          <p>Based in France, tied to no manufacturer: for each request we suggest those that best fit the specification, quantities, budget and lead time.</p>
+          <p><strong>We never buy, resell or invoice parts.</strong> Price, quality and delivery are agreed directly between buyer and manufacturer.</p>
+          <figure class="role-photo"><img src="assets/photo-handshake.jpg" alt="A buyer and a manufacturer shaking hands after agreeing" width="1200" height="800" loading="lazy"></figure>
+        </div>
+        <div class="audience" data-reveal>
           <h3>We work with</h3>
           <ul>
-            <li>Procurement managers and purchasing directors</li>
-            <li>Engineering and R&amp;D departments</li>
+            <li>Procurement and purchasing</li>
+            <li>Engineering and R&amp;D</li>
             <li>Mold makers and plastics processors</li>
-            <li>Machine builders and industrial manufacturers</li>
-            <li>Maintenance teams looking for spare parts</li>
+            <li>Machine builders</li>
+            <li>Manufacturers seeking European customers</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="faq" class="section section-alt">
-      <p class="eyebrow">FAQ</p>
-      <h2>Frequently asked questions</h2>
-      <div class="faq">
+    <section id="faq" class="section">
+      <p class="eyebrow" data-reveal>FAQ</p>
+      <h2 data-reveal>Frequently asked questions</h2>
+      <div class="faq" data-reveal>
         <details>
-          <summary>Are you a manufacturer?</summary>
-          <p>No. ALTIS SALES is an independent sourcing company. We identify suitable manufacturers for your parts and coordinate the project with them on your behalf.</p>
+          <summary>Are you a manufacturer or a reseller?</summary>
+          <p>Neither. We find, introduce and mediate. We don't make, buy or resell parts.</p>
         </details>
         <details>
-          <summary>Which files can I send?</summary>
-          <p>Whatever you have: PDF or DWG/DXF drawings, 3D models (STEP, IGES, STL, SolidWorks…), photos, catalog references, or a physical sample. Large files can be shared through a transfer link.</p>
+          <summary>Who do I sign the contract with?</summary>
+          <p>The manufacturer. Quotation, order, invoice and delivery are between you.</p>
+        </details>
+        <details>
+          <summary>How are you paid?</summary>
+          <p>A commission agreed in advance with the manufacturer, only on business we introduced. No fee for buyers.</p>
+        </details>
+        <details>
+          <summary>How do you choose the manufacturers?</summary>
+          <p>By part, quantity and requirements. Each one is checked first: real production, equipment, references, export experience.</p>
         </details>
         <details>
           <summary>Will my drawings stay confidential?</summary>
-          <p>Yes. Your files are only shared with the manufacturers consulted for your part, and we can sign a non-disclosure agreement before you send anything.</p>
+          <p>Yes. Shared only with the manufacturers we introduce, under NDA if you wish.</p>
         </details>
         <details>
-          <summary>What quantities do you handle?</summary>
-          <p>From prototypes to production runs. Tell us your volumes and we will look for manufacturers suited to them.</p>
+          <summary>Which files can I send?</summary>
+          <p>PDF, DWG/DXF, STEP, IGES, STL, SolidWorks, photos or a sample. Large files via a transfer link.</p>
         </details>
         <details>
-          <summary>How do you manage quality?</summary>
-          <p>Manufacturers are checked before any order, the first article or sample is approved by you, and each shipment can be inspected before it leaves the factory.</p>
-        </details>
-        <details>
-          <summary>Which countries do you serve?</summary>
-          <p>We work mainly with companies across Europe, and we support international projects on request.</p>
+          <summary>I'm a manufacturer: how do we work together?</summary>
+          <p>Present your capabilities with "I'm a manufacturer". If they match our buyers' needs, we agree on a commission before any introduction.</p>
         </details>
       </div>
     </section>
 
     <section id="contact" class="section contact section-dark">
-      <p class="eyebrow">Contact</p>
-      <p>Tell us about your part or project. We reply quickly, with no obligation.</p>
-      <p class="contact-lines">
-        <a class="btn js-quote" href="#contact">Request a quote</a>
+      <div class="contact-glow" aria-hidden="true"></div>
+      <p class="eyebrow" data-reveal>Contact</p>
+      <h2 data-reveal>Looking for a manufacturer, or for European customers?</h2>
+      <p data-reveal>A few lines are enough. We reply quickly, with no obligation.</p>
+      <div class="person" data-reveal>
+        <div class="person-photo"><span aria-hidden="true">QB</span><img src="assets/photo-quentin.jpg?v=2" alt="Quentin BRIOSCA" width="160" height="160" loading="lazy" onerror="this.remove()"></div>
+        <div>
+          <p class="person-name">Quentin BRIOSCA</p>
+          <p class="person-role">Founder, ALTIS SALES</p>
+          <p class="person-line">I personally handle every request.</p>
+        </div>
+        <a class="btn btn-ghost btn-linkedin" href="https://www.linkedin.com/in/q-altissales" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>Connect on LinkedIn</span></a>
+      </div>
+      <p class="contact-lines" data-reveal>
+        <a class="btn js-quote" href="#contact" data-role="Buyer">I'm looking for a manufacturer</a>
+        <a class="btn btn-ghost js-quote" href="#contact" data-role="Manufacturer">I'm a manufacturer</a>
         <button type="button" class="btn btn-ghost js-phone">Show phone number</button>
       </p>
     </section>
   </main>
 
+  <a href="#contact" class="btn floating-cta js-quote">Contact us</a>
+
   <footer class="footer">
     <img src="assets/logo-mark.png" alt="" width="28" height="24">
     <span>© 2026 ALTIS SALES France</span>
+    <a class="footer-linkedin" href="https://www.linkedin.com/in/q-altissales" target="_blank" rel="noopener" aria-label="ALTIS SALES on LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a>
+    <span class="credit">Photos: Daniel Smyth and Thirdman on <a href="https://www.pexels.com" rel="noopener">Pexels</a> · Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a></span>
     <details class="legal-notice">
       <summary>Legal notice &amp; privacy</summary>
-      <p>
-        <strong>Publisher:</strong> ALTIS SALES — Quentin BRIOSCA, sole proprietorship (entrepreneur individuel, micro-entreprise),
-        26 place Franck Chassaigne, 33720 Barsac, France. SIREN 923 311 864 — SIRET 923 311 864 00022.
-        Registration with the Bordeaux Trade and Companies Register (RCS) in progress.
-        VAT not applicable, article 293 B of the French Tax Code (CGI).
-        Contact: <button type="button" class="link-button js-email">show email</button> —
-        <button type="button" class="link-button js-phone">show phone</button>.
-        Publication director: Quentin BRIOSCA.
-      </p>
-      <p><strong>Hosting:</strong> GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
-      <p>
-        <strong>Personal data:</strong> this website has no user accounts, no analytics and sets no cookies.
-        Quote requests are stored in our management tool (Google Workspace) and completed with public information
-        from the official French business register (annuaire-entreprises.data.gouv.fr). They are used only to answer
-        your request and kept for no more than 3 years after the last contact. Your files are only shared with the
-        manufacturers consulted for your quotation, under a non-disclosure agreement if you wish.
-        The "Show phone number" button uses Cloudflare Turnstile (Cloudflare, Inc.) to block automated access; it sets
-        no advertising cookies. You may access, correct or delete your data by email (see Contact above), and lodge a
-        complaint with the French data protection authority (CNIL, cnil.fr).
-      </p>
+      <div class="lang-en" lang="en">
+        <p>
+          <strong>Publisher:</strong> ALTIS SALES — Quentin BRIOSCA, sole proprietorship (entrepreneur individuel, micro-entreprise),
+          26 place Franck Chassaigne, 33720 Barsac, France. SIREN 923 311 864 — SIRET 923 311 864 00022.
+          Registration with the Bordeaux Trade and Companies Register (RCS) in progress.
+          VAT not applicable, article 293 B of the French Tax Code (CGI).
+          Contact: <button type="button" class="link-button js-email">show email</button> —
+          <button type="button" class="link-button js-phone">show phone</button>.
+          Publication director: Quentin BRIOSCA.
+        </p>
+        <p><strong>Hosting:</strong> GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
+        <p>
+          <strong>Personal data:</strong> this website has no user accounts, no analytics and sets no cookies.
+          Requests sent through the form are stored in our management tool (Google Workspace) and completed with public information
+          from the official French business register (annuaire-entreprises.data.gouv.fr). They are used only to answer
+          your request and kept for no more than 3 years after the last contact. Your files are only shared with the
+          manufacturers we introduce you to, under a non-disclosure agreement if you wish.
+          The "Show phone number" button uses Cloudflare Turnstile (Cloudflare, Inc.) to block automated access; it sets
+          no advertising cookies. You may access, correct or delete your data by email (see Contact above), and lodge a
+          complaint with the French data protection authority (CNIL, cnil.fr).
+        </p>
+      </div>
+      <div class="lang-fr" lang="fr">
+        <p>
+          <strong>Éditeur :</strong> ALTIS SALES — Quentin BRIOSCA, entrepreneur individuel (micro-entreprise),
+          26 place Franck Chassaigne, 33720 Barsac, France. SIREN 923 311 864 — SIRET 923 311 864 00022.
+          Immatriculation au RCS de Bordeaux en cours.
+          TVA non applicable, article 293 B du CGI.
+          Contact : <button type="button" class="link-button js-email">afficher l'e-mail</button> —
+          <button type="button" class="link-button js-phone">afficher le téléphone</button>.
+          Directeur de la publication : Quentin BRIOSCA.
+        </p>
+        <p><strong>Hébergement :</strong> GitHub Pages — GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+        <p>
+          <strong>Données personnelles :</strong> ce site n'a ni comptes utilisateurs, ni mesure d'audience, et ne dépose aucun cookie.
+          Les demandes envoyées par le formulaire sont enregistrées dans notre outil de gestion (Google Workspace) et complétées par des
+          informations publiques de l'annuaire officiel des entreprises (annuaire-entreprises.data.gouv.fr). Elles servent uniquement à
+          répondre à votre demande et sont conservées au plus 3 ans après le dernier contact. Vos fichiers ne sont transmis qu'aux
+          fabricants qui vous sont présentés, sous accord de confidentialité si vous le souhaitez.
+          Le bouton « Afficher le téléphone » utilise Cloudflare Turnstile (Cloudflare, Inc.) pour bloquer les robots ; il ne dépose aucun
+          cookie publicitaire. Vous pouvez accéder à vos données, les corriger ou les supprimer par e-mail (voir Contact ci-dessus), et
+          adresser une réclamation à la CNIL (cnil.fr).
+        </p>
+      </div>
     </details>
   </footer>
 
   <dialog id="quote-dialog" class="quote-dialog">
     <form id="quote-form" class="quote-form">
       <button type="button" class="dialog-close js-close" aria-label="Close">×</button>
-      <h2>Request a quote</h2>
+      <h2>Contact us</h2>
       <p class="form-intro">Leave your details and we will get back to you shortly.</p>
+      <fieldset class="role-choice">
+        <legend>I am</legend>
+        <label><input type="radio" name="profil" value="Buyer" checked> looking for a manufacturer</label>
+        <label><input type="radio" name="profil" value="Manufacturer"> a manufacturer</label>
+      </fieldset>
       <label>Company *<input name="entreprise" required maxlength="150" autocomplete="organization"></label>
       <label>Business email *<input name="email" type="email" required maxlength="150" autocomplete="email"></label>
       <label>Phone<input name="telephone" type="tel" maxlength="40" autocomplete="tel"></label>
       <label>Country *<input name="pays" required maxlength="80" autocomplete="country-name"></label>
-      <label>Your project<textarea name="besoin" rows="3" maxlength="2000" placeholder="Part type, material, quantity, target lead time…"></textarea></label>
+      <label><span class="js-need-label">Your need</span><textarea name="besoin" rows="3" maxlength="2000" placeholder="Part type, material, quantity, target lead time…"></textarea></label>
       <input type="text" name="website" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <p class="form-note">You can send drawings and 3D models in reply to our email. Your details are used only to answer your request.</p>
-      <button type="submit" class="btn">Send request</button>
+      <p class="form-note">You can send drawings, 3D models or your company presentation in reply to our email. Your details are used only to answer your request.</p>
+      <button type="submit" class="btn">Send</button>
       <p class="form-status" role="status"></p>
     </form>
   </dialog>
@@ -217,6 +405,8 @@
   </dialog>
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
-  <script src="assets/contact.js?v=4"></script>
+  <script src="assets/motion.js?v=6"></script>
+  <script src="assets/i18n.js?v=1"></script>
+  <script src="assets/contact.js?v=6"></script>
 </body>
 </html>
