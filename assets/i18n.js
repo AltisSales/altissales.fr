@@ -167,8 +167,6 @@
     "Connect on LinkedIn": "Me suivre sur LinkedIn",
     "Show phone number": "Afficher le téléphone",
     // Pied de page, mentions légales
-    "Photos: Daniel Smyth and Thirdman on": "Photos : Daniel Smyth et Thirdman sur",
-    "· Icons:": "· Icônes :",
     "Legal notice & privacy": "Mentions légales & confidentialité",
     // Formulaires
     "Leave your details and we will get back to you shortly.": "Laissez vos coordonnées, nous revenons vers vous rapidement.",
