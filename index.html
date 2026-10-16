@@ -16,12 +16,19 @@
   <meta name="theme-color" content="#14181b">
   <link rel="icon" type="image/png" href="assets/logo-mark.png">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=25">
+  <link rel="stylesheet" href="assets/style.css?v=42">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="altis-gold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="48" y2="48">
+        <stop offset="0" stop-color="#e2bf86"/><stop offset="0.55" stop-color="#b28451"/><stop offset="1" stop-color="#896038"/>
+      </linearGradient>
+    </defs>
+  </svg>
   <header class="topbar">
-    <a class="brand" href="#"><img src="assets/logo-mark.png" alt="" width="40" height="34"><span>ALTIS <em>SALES</em></span></a>
+    <a class="brand" href="#"><img src="assets/logo-mark.webp" alt="" width="40" height="35"><span>ALTIS <em>SALES</em></span></a>
     <nav>
       <a href="#sides">Buyers &amp; manufacturers</a>
       <a href="#approach">How it works</a>
@@ -73,7 +80,7 @@
             <g class="node buyer"><circle cx="58" cy="70" r="20"/><circle cx="58" cy="180" r="20"/><circle cx="58" cy="290" r="20"/></g>
             <g class="node maker"><rect x="342" y="50" width="40" height="40" rx="8"/><rect x="342" y="160" width="40" height="40" rx="8"/><rect x="342" y="270" width="40" height="40" rx="8"/></g>
             <g class="hub"><circle cx="220" cy="180" r="44" class="hub-ring"/><circle cx="220" cy="180" r="34"/></g>
-            <image href="assets/logo-mark.png" x="196" y="160" width="48" height="41"/>
+            <image href="assets/logo-mark.webp" x="196" y="160" width="48" height="41"/>
             <text x="58" y="336">BUYERS</text>
             <text x="362" y="336">MANUFACTURERS</text>
           </svg>
@@ -95,7 +102,7 @@
       <h2 data-reveal>What we do for each side</h2>
       <div class="sides">
         <article class="side" data-reveal>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/><path d="m16 16-1.9-1.9"/></svg>
+          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 6l12 6v14l-12 6-12-6V12Z"/><path d="M28 30l14 14"/></svg>
           <h3>For buyers</h3>
           <ul>
             <li>Manufacturers matched to your parts, including a second source</li>
@@ -106,7 +113,7 @@
           <a href="#contact" class="btn js-quote" data-role="Buyer">Describe your need</a>
         </article>
         <article class="side side-dark" data-reveal>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg>
+          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44V26l12-10v10l12-10v10l12-12v30Z"/><path d="M11 36h5M21 36h5M31 36h5"/></svg>
           <h3>For manufacturers</h3>
           <ul>
             <li>Your capabilities presented to European buyers</li>
@@ -124,9 +131,9 @@
       <h2 data-reveal>Click a field to see what's inside</h2>
       <div class="fields" data-reveal>
         <div class="field-tabs" role="tablist" aria-label="Fields we cover">
-          <button type="button" role="tab" id="tab-cnc" aria-controls="panel-cnc" aria-selected="true" tabindex="0"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg><span>CNC machined parts</span></button>
-          <button type="button" role="tab" id="tab-mold" aria-controls="panel-mold" aria-selected="false" tabindex="-1"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg><span>Mold components</span></button>
-          <button type="button" role="tab" id="tab-tool" aria-controls="panel-tool" aria-selected="false" tabindex="-1"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Tooling &amp; special parts</span></button>
+          <button type="button" role="tab" id="tab-cnc" aria-controls="panel-cnc" aria-selected="true" tabindex="0"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 4h12l2 6 8 4 4 10-4 10-8 4-2 6H18l-2-6-8-4-4-10 4-10 8-4Z"/><path d="M24 16l8 8-8 8-8-8Z"/></svg><span>CNC machined parts</span></button>
+          <button type="button" role="tab" id="tab-mold" aria-controls="panel-mold" aria-selected="false" tabindex="-1"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l16 8v20l-16 8-16-8V14Z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg><span>Mold components</span></button>
+          <button type="button" role="tab" id="tab-tool" aria-controls="panel-tool" aria-selected="false" tabindex="-1"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 4l14 14-7 7-7-7L14 34l4 4-6 6-8-8 6-6 4 4 16-16-7-7Z"/></svg><span>Tooling &amp; special parts</span></button>
         </div>
         <div class="field-panel" role="tabpanel" id="panel-cnc" aria-labelledby="tab-cnc">
           <h3>Precision CNC machined parts</h3>
@@ -161,64 +168,57 @@
       </div>
     </section>
 
-    <!-- The route: from the buyer to the manufacturer, four stops; each stop shows who does what. -->
-    <section id="approach" class="section section-dark">
+    <!-- How it works: the ALTIS SALES "A" between buyer and manufacturer; each step is an arrow, selectable on the diagram. -->
+    <section id="approach" class="section section-dark how">
       <p class="eyebrow" data-reveal>How it works</p>
-      <h2 data-reveal>Four stops from your need to an agreement</h2>
-      <div class="route" data-reveal>
-        <div class="route-map">
-          <svg class="route-svg" viewBox="0 0 1000 260" aria-hidden="true">
-            <path class="road-bed" d="M110 150 C210 40 300 40 370 120 S520 230 610 140 S780 40 890 150"/>
-            <path id="road" class="road" d="M110 150 C210 40 300 40 370 120 S520 230 610 140 S780 40 890 150" pathLength="1"/>
-            <circle class="traveller" r="8" cx="110" cy="150"/>
-            <g class="end end-buyer"><circle cx="70" cy="150" r="40"/><svg x="50" y="130" width="40" height="40" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></g>
-            <g class="end end-maker"><circle cx="930" cy="150" r="40"/><svg x="910" y="130" width="40" height="40" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg></g>
-            <text x="70" y="218">BUYER</text>
-            <text x="930" y="218">MANUFACTURER</text>
-          </svg>
-          <div class="stops" role="tablist" aria-label="Stages">
-            <button type="button" class="stop" role="tab" id="stop-1" aria-controls="stage-1" aria-selected="true" tabindex="0" data-at="0.17">
-              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span><span class="stop-label"><b>1</b> Request</span>
-            </button>
-            <button type="button" class="stop" role="tab" id="stop-2" aria-controls="stage-2" aria-selected="false" tabindex="-1" data-at="0.4">
-              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="stop-label"><b>2</b> Selection</span>
-            </button>
-            <button type="button" class="stop" role="tab" id="stop-3" aria-controls="stage-3" aria-selected="false" tabindex="-1" data-at="0.62">
-              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></span><span class="stop-label"><b>3</b> Introduction</span>
-            </button>
-            <button type="button" class="stop" role="tab" id="stop-4" aria-controls="stage-4" aria-selected="false" tabindex="-1" data-at="0.84">
-              <span class="stop-dot"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></span><span class="stop-label"><b>4</b> Agreement</span>
-            </button>
-          </div>
+      <h2 data-reveal>Three sides, one agreement</h2>
+      <div class="how-diagram" data-reveal>
+        <svg class="how-svg" viewBox="0 0 800 540" aria-hidden="true">
+          <defs>
+            <marker id="how-head" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 Z"/>
+            </marker>
+          </defs>
+          <circle class="how-orbit" cx="400" cy="270" r="205"/>
+          <path class="how-link" data-step="1" d="M199.6 313 A205 205 0 0 1 300.4 90.8" marker-end="url(#how-head)" pathLength="1"/>
+          <path class="how-link" data-step="2" d="M499.6 90.8 A205 205 0 0 1 600.4 313" marker-end="url(#how-head)" pathLength="1"/>
+          <path class="how-link" data-step="3" d="M400 167 L400 461" marker-end="url(#how-head)" pathLength="1"/>
+          <path class="how-link" data-step="4" d="M537.5 422.1 A205 205 0 0 1 262.5 422.1" marker-start="url(#how-head)" marker-end="url(#how-head)" pathLength="1"/>
+          <circle class="how-pulse" r="6" cx="-20" cy="-20"/>
+          <g class="how-node how-altis"><circle class="how-ring" cx="400" cy="65" r="94"/><circle cx="400" cy="65" r="76"/><image href="assets/logo-mark.webp" x="350" y="21" width="100" height="87"/></g>
+          <g class="how-node"><circle cx="222.5" cy="372.5" r="54"/><svg class="icon-b" x="194.5" y="344.5" width="56" height="56" viewBox="0 0 48 48"><path d="M6 44V20L22 8v36M22 44V24l18 8v12M2 44h44"/><path d="M11 24h5M11 31h5M11 38h5M28 38h6"/></svg></g>
+          <g class="how-node"><circle cx="577.5" cy="372.5" r="54"/><svg class="icon-b" x="549.5" y="344.5" width="56" height="56" viewBox="0 0 48 48"><path d="M4 44V26l12-10v10l12-10v10l12-12v30Z"/><path d="M11 36h5M21 36h5M31 36h5"/></svg></g>
+          <text class="how-name" x="182.5" y="460.5">BUYER</text>
+          <text class="how-name" x="617.5" y="460.5">MANUFACTURER</text>
+          <text class="how-name how-name-altis" x="400" y="-43">ALTIS SALES</text>
+        </svg>
+        <div class="how-hits">
+          <button type="button" class="how-hit how-hit-altis tip-below" aria-describedby="how-tip-altis" style="--x:50.00%;--y:12.04%;--s:24.50%">
+            <span class="sr-only">ALTIS SALES</span>
+            <span class="how-tip" id="how-tip-altis" role="tooltip"><strong>ALTIS SALES</strong><span>Independent business introducer</span><span>Selects & checks manufacturers</span><span>Introduces both sides</span><span>Mediates until agreement</span></span>
+          </button>
+          <button type="button" class="how-hit how-hit-buyer tip-above" aria-describedby="how-tip-buyer" style="--x:27.81%;--y:68.98%;--s:13.50%">
+            <span class="sr-only">Buyer</span>
+            <span class="how-tip" id="how-tip-buyer" role="tooltip"><strong>Buyer</strong><span>Your company</span><span>Drawings, quantities, lead time</span><span>Orders & pays the manufacturer</span></span>
+          </button>
+          <button type="button" class="how-hit how-hit-maker tip-above" aria-describedby="how-tip-maker" style="--x:72.19%;--y:68.98%;--s:13.50%">
+            <span class="sr-only">Manufacturer</span>
+            <span class="how-tip" id="how-tip-maker" role="tooltip"><strong>Manufacturer</strong><span>Checked partner</span><span>Quotes you directly</span><span>Produces, invoices, delivers</span></span>
+          </button>
         </div>
-        <div class="stage-card" role="tabpanel" id="stage-1" aria-labelledby="stop-1">
-          <h3><b>1</b> Request</h3>
-          <p class="who"><span>Buyer</span>Sends drawings, quantities, lead time</p>
-          <p class="who altis"><span>ALTIS SALES</span>Clarifies the need, NDA if wanted</p>
-          <p class="who none"><span>Manufacturer</span>—</p>
-        </div>
-        <div class="stage-card" role="tabpanel" id="stage-2" aria-labelledby="stop-2">
-          <h3><b>2</b> Selection</h3>
-          <p class="who none"><span>Buyer</span>—</p>
-          <p class="who altis"><span>ALTIS SALES</span>Selects and checks manufacturers</p>
-          <p class="who"><span>Manufacturer</span>Shares capabilities and references</p>
-        </div>
-        <div class="stage-card" role="tabpanel" id="stage-3" aria-labelledby="stop-3">
-          <h3><b>3</b> Introduction</h3>
-          <p class="who"><span>Buyer</span>Meets the manufacturer</p>
-          <p class="who altis"><span>ALTIS SALES</span>Puts you in touch, shares the files</p>
-          <p class="who"><span>Manufacturer</span>Quotes the buyer directly</p>
-        </div>
-        <div class="stage-card" role="tabpanel" id="stage-4" aria-labelledby="stop-4">
-          <h3><b>4</b> Agreement</h3>
-          <p class="who"><span>Buyer</span>Orders and pays the manufacturer</p>
-          <p class="who altis"><span>ALTIS SALES</span>Mediates until you agree</p>
-          <p class="who"><span>Manufacturer</span>Produces, invoices, delivers</p>
-        </div>
-        <div class="route-controls">
-          <button type="button" class="route-btn js-prev" aria-label="Previous stage">← Previous</button>
-          <button type="button" class="route-btn js-replay">Replay the route</button>
-          <button type="button" class="route-btn js-next" aria-label="Next stage">Next →</button>
+        <div class="how-steps" role="tablist" aria-label="Stages">
+          <button type="button" class="how-step" role="tab" id="how-step-1" aria-selected="true" tabindex="0" data-step="1" style="--x:19.61%;--y:29.57%">
+            <b>01</b><span class="how-step-title">Request</span><span class="how-step-label">Your need</span>
+          </button>
+          <button type="button" class="how-step" role="tab" id="how-step-2" aria-selected="false" tabindex="-1" data-step="2" style="--x:80.39%;--y:29.57%">
+            <b>02</b><span class="how-step-title">Selection</span><span class="how-step-label">Checked manufacturers</span>
+          </button>
+          <button type="button" class="how-step" role="tab" id="how-step-3" aria-selected="false" tabindex="-1" data-step="3" style="--x:50.00%;--y:53.70%">
+            <b>03</b><span class="how-step-title">Introduction</span>
+          </button>
+          <button type="button" class="how-step" role="tab" id="how-step-4" aria-selected="false" tabindex="-1" data-step="4" style="--x:50.00%;--y:95.37%">
+            <b>04</b><span class="how-step-title">Agreement</span><span class="how-step-label">Direct contract</span>
+          </button>
         </div>
       </div>
     </section>
@@ -244,7 +244,7 @@
           <h2>An independent business introducer</h2>
           <p>Based in France, tied to no manufacturer: for each request we suggest those that best fit the specification, quantities, budget and lead time.</p>
           <p><strong>We never buy, resell or invoice parts.</strong> Price, quality and delivery are agreed directly between buyer and manufacturer.</p>
-          <figure class="role-photo"><img src="assets/photo-handshake.jpg" alt="A buyer and a manufacturer shaking hands after agreeing" width="1200" height="800" loading="lazy"></figure>
+          <figure class="role-photo"><img src="assets/photo-handshake.webp" alt="A buyer and a manufacturer shaking hands after agreeing" width="800" height="533" loading="lazy"></figure>
         </div>
         <div class="audience" data-reveal>
           <h3>We work with</h3>
@@ -297,10 +297,10 @@
     <section id="contact" class="section contact section-dark">
       <div class="contact-glow" aria-hidden="true"></div>
       <p class="eyebrow" data-reveal>Contact</p>
-      <h2 data-reveal>Looking for a manufacturer, or for European customers?</h2>
+      <h2 data-reveal>Looking for a manufacturer or European customers?</h2>
       <p data-reveal>A few lines are enough. We reply quickly, with no obligation.</p>
       <div class="person" data-reveal>
-        <div class="person-photo"><span aria-hidden="true">QB</span><img src="assets/photo-quentin.jpg?v=2" alt="Quentin BRIOSCA" width="160" height="160" loading="lazy" onerror="this.remove()"></div>
+        <div class="person-photo"><span aria-hidden="true">QB</span><img src="assets/photo-quentin.webp" alt="Quentin BRIOSCA" width="160" height="160" loading="lazy" onerror="this.remove()"></div>
         <div>
           <p class="person-name">Quentin BRIOSCA</p>
           <p class="person-role">Founder, ALTIS SALES</p>
@@ -319,10 +319,10 @@
   <a href="#contact" class="btn floating-cta js-quote">Contact us</a>
 
   <footer class="footer">
-    <img src="assets/logo-mark.png" alt="" width="28" height="24">
+    <img src="assets/logo-mark.webp" alt="" width="28" height="24" loading="lazy">
     <span>© 2026 ALTIS SALES France</span>
     <button type="button" class="footer-linkedin link-button js-linkedin" aria-label="ALTIS SALES on LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></button>
-    <span class="credit">Photos: Daniel Smyth and Thirdman on <a href="https://www.pexels.com" rel="noopener">Pexels</a> · Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a></span>
+    <span class="credit">Photos: Daniel Smyth and Thirdman on <a href="https://www.pexels.com" rel="noopener">Pexels</a>, NASA on <a href="https://unsplash.com" rel="noopener">Unsplash</a> · Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a></span>
     <details class="legal-notice">
       <summary>Legal notice &amp; privacy</summary>
       <div class="lang-en" lang="en">
@@ -418,9 +418,8 @@
     </div>
   </dialog>
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
-  <script src="assets/motion.js?v=6"></script>
-  <script src="assets/i18n.js?v=2"></script>
-  <script src="assets/contact.js?v=7"></script>
+  <script src="assets/motion.js?v=11"></script>
+  <script src="assets/i18n.js?v=7"></script>
+  <script src="assets/contact.js?v=8"></script>
 </body>
 </html>

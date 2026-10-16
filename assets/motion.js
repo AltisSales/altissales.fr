@@ -63,118 +63,103 @@
     selectTab(tabs[0], false);
   }
 
-  // "How it works" : la route se trace quand elle devient visible, un point la parcourt,
-  // et chaque arrêt (placé sur la route) affiche qui fait quoi.
-  const route = document.querySelector(".route");
-  if (route) {
-    const road = route.querySelector("#road");
-    const svg = route.querySelector(".route-svg");
-    const stops = [...route.querySelectorAll(".stop")];
-    const placeStops = () => {
-      const box = svg.viewBox.baseVal;
-      const length = road.getTotalLength();
-      stops.forEach((stop) => {
-        const point = road.getPointAtLength(length * Number(stop.dataset.at));
-        stop.style.left = `${(point.x / box.width) * 100}%`;
-        stop.style.top = `${(point.y / box.height) * 100}%`;
-      });
-    };
-    placeStops();
-    route.classList.add("is-placed");
-    function selectStop(stop, focus) {
-      stops.forEach((other) => {
-        const selected = other === stop;
-        other.setAttribute("aria-selected", String(selected));
-        other.tabIndex = selected ? 0 : -1;
-        const card = document.getElementById(other.getAttribute("aria-controls"));
-        card.hidden = !selected;
-        card.classList.toggle("is-shown", selected);
-      });
-      if (focus) {
-        stop.focus();
-      }
-    }
-    stops.forEach((stop, index) => {
-      stop.addEventListener("keydown", (event) => {
-        const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
-        if (step) {
-          event.preventDefault();
-          selectStop(stops[(index + step + stops.length) % stops.length], true);
-        }
-      });
-    });
-    selectStop(stops[0], false);
-
-    // Le point parcourt la route : il s'arrête à chaque étape et ouvre sa carte (visite guidée).
-    // Un clic sur un arrêt l'y envoie et arrête la visite ; "Replay" la relance.
-    const traveller = route.querySelector(".traveller");
-    const length = road.getTotalLength();
-    let position = 0;
+  // "How it works" : chaque étape est une flèche du schéma. Visite automatique (flèches l'une après l'autre)
+  // jusqu'au premier survol ou clic ; l'étape choisie s'allume et son détail s'affiche dans le panneau en dessous.
+  const how = document.querySelector(".how-diagram");
+  if (how) {
+    const steps = [...how.querySelectorAll(".how-step")];
+    const links = [...how.querySelectorAll(".how-link")];
+    const pulse = how.querySelector(".how-pulse");
     let frame = 0;
-    let touring = false;
-    const moveTo = (fraction) => {
-      position = fraction;
-      const point = road.getPointAtLength(length * fraction);
-      traveller.setAttribute("cx", point.x);
-      traveller.setAttribute("cy", point.y);
-    };
-    const glide = (target, done) => {
+    let timer = 0;
+    let touring = true;
+    const runPulse = (link) => {
       cancelAnimationFrame(frame);
-      const from = position;
-      const duration = reduceMotion ? 0 : Math.max(250, Math.abs(target - from) * 2600);
+      if (reduceMotion) {
+        return;
+      }
+      const length = link.getTotalLength();
+      const both = link.dataset.step === "4";
       const started = performance.now();
       const step = (now) => {
-        const t = duration ? Math.min((now - started) / duration, 1) : 1;
-        const eased = t < 0.5 ? 2 * t * t : 1 - ((-2 * t + 2) ** 2) / 2;
-        moveTo(from + (target - from) * eased);
-        if (t < 1) {
-          frame = requestAnimationFrame(step);
-        }
-        else if (done) {
-          done();
-        }
+        const t = ((now - started) % 1800) / 1800;
+        // Étape 4 (accord direct) : le point fait l'aller-retour entre acheteur et fabricant.
+        const at = both ? (t < 0.5 ? t * 2 : 2 - (t * 2)) : t;
+        const point = link.getPointAtLength(length * at);
+        pulse.setAttribute("cx", point.x);
+        pulse.setAttribute("cy", point.y);
+        frame = requestAnimationFrame(step);
       };
       frame = requestAnimationFrame(step);
     };
-    const goToStop = (index, fromTour) => {
-      if (!fromTour) {
-        touring = false;
+    const select = (n, focus) => {
+      steps.forEach((button) => {
+        const on = button.dataset.step === String(n);
+        button.setAttribute("aria-selected", String(on));
+        button.tabIndex = on ? 0 : -1;
+        if (on && focus) {
+          button.focus();
+        }
+      });
+      links.forEach((link) => link.classList.toggle("is-active", link.dataset.step === String(n)));
+      how.dataset.active = String(n);
+      runPulse(links[n - 1]);
+    };
+    const stopTour = () => {
+      touring = false;
+      clearTimeout(timer);
+    };
+    const tour = (n) => {
+      if (!touring) {
+        return;
       }
-      const stop = stops[index];
-      selectStop(stop, false);
-      glide(Number(stop.dataset.at));
+      select(n, false);
+      timer = setTimeout(() => tour((n % steps.length) + 1), 3200);
     };
-    const tour = (index = 0) => {
-      touring = true;
-      const visit = (i) => {
-        if (!touring) {
+    steps.forEach((button, index) => {
+      const n = index + 1;
+      button.addEventListener("click", () => {
+        stopTour();
+        select(n, false);
+      });
+      button.addEventListener("mouseenter", () => {
+        stopTour();
+        select(n, false);
+      });
+      // Souris partie : l'étape ne reste pas allumée, la visite reprend à l'étape suivante.
+      button.addEventListener("mouseleave", () => {
+        if (touring) {
           return;
         }
-        if (i >= stops.length) {
-          glide(1, () => { touring = false; });
-
-          return;
+        touring = true;
+        clearTimeout(timer);
+        timer = setTimeout(() => tour((n % steps.length) + 1), 900);
+      });
+      button.addEventListener("keydown", (event) => {
+        const move = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+        if (move) {
+          event.preventDefault();
+          stopTour();
+          select(((index + move + steps.length) % steps.length) + 1, true);
         }
-        glide(Number(stops[i].dataset.at), () => {
-          if (!touring) {
-            return;
-          }
-          selectStop(stops[i], false);
-          setTimeout(() => visit(i + 1), 2200);
-        });
-      };
-      moveTo(0);
-      visit(index);
-    };
-    stops.forEach((stop, index) => stop.addEventListener("click", () => goToStop(index, false)));
-    const current = () => stops.findIndex((stop) => stop.getAttribute("aria-selected") === "true");
-    route.querySelector(".js-prev").addEventListener("click", () => goToStop((current() + stops.length - 1) % stops.length, false));
-    route.querySelector(".js-next").addEventListener("click", () => goToStop((current() + 1) % stops.length, false));
-    route.querySelector(".js-replay").addEventListener("click", () => tour());
-
+      });
+    });
+    select(1, false);
+    // Bulles d'info des icônes : survol ou focus (CSS) ; au toucher, un appui ouvre la bulle, un autre la ferme.
+    const hits = [...how.querySelectorAll(".how-hit")];
+    hits.forEach((hit) => hit.addEventListener("click", () => {
+      const open = !hit.classList.contains("is-open");
+      hits.forEach((other) => other.classList.remove("is-open"));
+      hit.classList.toggle("is-open", open);
+    }));
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".how-hit")) {
+        hits.forEach((hit) => hit.classList.remove("is-open"));
+      }
+    });
     const start = () => {
-      route.classList.add("is-drawn");
-      setTimeout(() => tour(), reduceMotion ? 0 : 1600);
+      how.classList.add("is-drawn");
+      timer = setTimeout(() => tour(1), reduceMotion ? 0 : 2000);
     };
     if ("IntersectionObserver" in window && !reduceMotion) {
       new IntersectionObserver(([entry], observer) => {
@@ -182,11 +167,10 @@
           start();
           observer.disconnect();
         }
-      }, { threshold: 0.35 }).observe(route);
+      }, { threshold: 0.35 }).observe(how);
     }
     else {
-      route.classList.add("is-drawn");
-      moveTo(Number(stops[0].dataset.at));
+      how.classList.add("is-drawn");
     }
   }
 

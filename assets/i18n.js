@@ -87,6 +87,20 @@
     "industrial manufacturers, maintenance": "industriels, maintenance",
     // Fonctionnement
     "Four stops from your need to an agreement": "Quatre étapes, de votre besoin à l'accord",
+    "Three sides, one agreement": "Trois côtés, un accord",
+    "Checked manufacturers": "Fabricants vérifiés",
+    "Independent business introducer": "Apporteur d'affaires indépendant",
+    "Selects & checks manufacturers": "Sélectionne & vérifie les fabricants",
+    "Introduces both sides": "Met les deux parties en relation",
+    "Mediates until agreement": "Facilite jusqu'à l'accord",
+    "Your company": "Votre entreprise",
+    "Drawings, quantities, lead time": "Plans, quantités, délai",
+    "Orders & pays the manufacturer": "Commande & paie le fabricant",
+    "Checked partner": "Partenaire vérifié",
+    "Quotes you directly": "Vous chiffre en direct",
+    "Direct contract": "Contrat direct",
+    "ALTIS SALES": "ALTIS SALES",
+    "DIRECT CONTRACT": "CONTRAT DIRECT",
     "BUYER": "ACHETEUR",
     "MANUFACTURER": "FABRICANT",
     "Request": "Demande",
@@ -146,7 +160,7 @@
     "Present your capabilities with \"I'm a manufacturer\". If they match our buyers' needs, we agree on a commission before any introduction.": "Présentez vos capacités avec « Je suis fabricant ». Si elles correspondent aux besoins de nos acheteurs, nous convenons d'une commission avant toute mise en relation.",
     // Contact
     "Contact": "Contact",
-    "Looking for a manufacturer, or for European customers?": "Vous cherchez un fabricant, ou des clients en Europe ?",
+    "Looking for a manufacturer or European customers?": "Vous cherchez un fabricant ou des clients en Europe ?",
     "A few lines are enough. We reply quickly, with no obligation.": "Quelques lignes suffisent. Réponse rapide, sans engagement.",
     "Founder, ALTIS SALES": "Fondateur, ALTIS SALES",
     "I personally handle every request.": "Je traite personnellement chaque demande.",
@@ -154,6 +168,7 @@
     "Show phone number": "Afficher le téléphone",
     // Pied de page, mentions légales
     "Photos: Daniel Smyth and Thirdman on": "Photos : Daniel Smyth et Thirdman sur",
+    ", NASA on": ", NASA sur",
     "· Icons:": "· Icônes :",
     "Legal notice & privacy": "Mentions légales & confidentialité",
     // Formulaires

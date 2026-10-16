@@ -20,6 +20,18 @@
     return result;
   }
 
+  /** Script Cloudflare chargé seulement à la première ouverture d'une fenêtre (page plus rapide). */
+  function loadTurnstile() {
+    if (window.turnstile || document.getElementById("turnstile-api")) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "turnstile-api";
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    document.head.append(script);
+  }
+
   /**
    * Captcha Turnstile dans un conteneur. Le script Cloudflare se charge en arrière-plan : on attend qu'il soit prêt.
    * onToken reçoit le jeton (à usage unique) ; reset() en redemande un après chaque envoi.
@@ -28,6 +40,7 @@
     let widgetId = null;
     let token = "";
     const start = () => {
+      loadTurnstile();
       if (!window.turnstile) {
         if (statusElement) {
           statusElement.textContent = t("Loading the check…");
