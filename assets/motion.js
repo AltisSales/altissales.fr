@@ -145,6 +145,23 @@
       });
     });
     select(1, false);
+    // Vue acheteur / vue fabricant : les flèches du haut changent de sens, les étapes 01 et 02 changent de côté.
+    const viewButtons = [...document.querySelectorAll(".how-view-btn")];
+    viewButtons.forEach((button) => button.addEventListener("click", () => {
+      const view = button.dataset.view;
+      viewButtons.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+      how.classList.toggle("is-maker-view", view === "maker");
+      links.forEach((link) => {
+        if (link.dataset[view]) {
+          link.setAttribute("d", link.dataset[view]);
+          link.classList.remove("is-redraw");
+          // Relance l'animation de tracé de la flèche.
+          link.getBoundingClientRect();
+          link.classList.add("is-redraw");
+        }
+      });
+      select(Number(how.dataset.active || 1), false);
+    }));
     // Bulles d'info des icônes : survol ou focus (CSS) ; au toucher, un appui ouvre la bulle, un autre la ferme.
     const hits = [...how.querySelectorAll(".how-hit")];
     hits.forEach((hit) => hit.addEventListener("click", () => {

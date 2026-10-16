@@ -678,3 +678,24 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
 .how::after { display: none; }
 .how-orbit { fill: none; stroke: rgba(203, 165, 113, 0.12); stroke-width: 1; stroke-dasharray: 2 8; }
 .how-step-title, .how-step-label { white-space: nowrap; }
+
+/* "How it works" : bouton vue acheteur / vue fabricant */
+.how-view { display: flex; justify-content: center; gap: 0; width: max-content; margin: 0 auto 6px; padding: 4px; border: 1px solid var(--gold); border-radius: 999px; background: rgba(20, 24, 27, 0.9); }
+.how-view-btn { padding: 8px 18px; border: 0; border-radius: 999px; background: transparent; color: #aab2b8; font: 600 0.9rem "IBM Plex Sans", sans-serif; cursor: pointer; transition: background 0.25s, color 0.25s; }
+.how-view-btn[aria-pressed="true"] { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--navy); }
+.how-view-btn:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.how-step .for-maker { display: none; }
+.how-diagram.is-maker-view .how-step .for-buyer { display: none; }
+.how-diagram.is-maker-view .how-step .for-maker { display: block; }
+.how-diagram.is-maker-view #how-step-1 { --x: 80.39% !important; }
+.how-diagram.is-maker-view #how-step-2 { --x: 19.61% !important; }
+.how-step { transition: border-color 0.25s, background 0.25s, transform 0.25s, left 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.how-link.is-redraw { stroke-dashoffset: 1; animation: draw 0.7s ease-out forwards !important; }
+@media (max-width: 760px) { .how-view-btn { padding: 6px 12px; font-size: 0.78rem; } }
+.how-view { margin: 4px auto 64px; }
+@media (max-width: 760px) { .how-view { margin-bottom: 34px; } }
+@media (max-width: 760px) {
+  .how-diagram.is-maker-view .how-step .how-step-label.for-maker { display: none; }
+  .how-diagram.is-maker-view #how-step-2 { --x: 22% !important; }
+  .how-diagram.is-maker-view #how-step-1 { --x: 79% !important; }
+}
