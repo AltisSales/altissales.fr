@@ -63,131 +63,102 @@
     selectTab(tabs[0], false);
   }
 
-  // "How it works" : chaque étape est une flèche du schéma. Visite automatique (flèches l'une après l'autre)
-  // jusqu'au premier survol ou clic ; l'étape choisie s'allume et son détail s'affiche dans le panneau en dessous.
-  const how = document.querySelector(".how-diagram");
-  if (how) {
-    const steps = [...how.querySelectorAll(".how-step")];
-    const links = [...how.querySelectorAll(".how-link")];
-    const pulse = how.querySelector(".how-pulse");
-    let frame = 0;
+  // "How it works" : vue acheteur ou fabricant (une seule à la fois). Étapes 01-02 sur les flèches, 03-04 sous ALTIS SALES.
+  // Visite automatique des 4 étapes ; survol, clic ou clavier choisissent une étape (le point continue de bouger).
+  const flow = document.querySelector(".fl");
+  if (flow) {
+    const viewButtons = [...document.querySelectorAll(".how-view-btn")];
+    const steps = () => ({
+      1: flow.dataset.view === "buyer" ? flow.querySelector(".fl-step-left") : flow.querySelector(".fl-step-right"),
+      2: flow.dataset.view === "buyer" ? flow.querySelector(".fl-step-right") : flow.querySelector(".fl-step-left"),
+      3: flow.querySelector(".fl-step-3"),
+      4: flow.querySelector(".fl-step-4")
+    });
     let timer = 0;
     let touring = true;
-    const runPulse = (link) => {
-      cancelAnimationFrame(frame);
-      if (reduceMotion) {
-        return;
-      }
-      const length = link.getTotalLength();
-      const both = link.dataset.step === "4";
-      const started = performance.now();
-      const step = (now) => {
-        const t = ((now - started) % 1800) / 1800;
-        // Étape 4 (accord direct) : le point fait l'aller-retour entre acheteur et fabricant.
-        const at = both ? (t < 0.5 ? t * 2 : 2 - (t * 2)) : t;
-        const point = link.getPointAtLength(length * at);
-        pulse.setAttribute("cx", point.x);
-        pulse.setAttribute("cy", point.y);
-        frame = requestAnimationFrame(step);
-      };
-      frame = requestAnimationFrame(step);
-    };
-    const select = (n, focus) => {
-      steps.forEach((button) => {
-        const on = button.dataset.step === String(n);
-        button.setAttribute("aria-selected", String(on));
-        button.tabIndex = on ? 0 : -1;
-        if (on && focus) {
-          button.focus();
-        }
-      });
-      links.forEach((link) => link.classList.toggle("is-active", link.dataset.step === String(n)));
-      how.dataset.active = String(n);
-      runPulse(links[n - 1]);
-    };
-    const stopTour = () => {
-      touring = false;
-      clearTimeout(timer);
+    const select = (n) => {
+      flow.dataset.active = String(n);
+      Object.entries(steps()).forEach(([k, button]) => button.setAttribute("aria-pressed", String(Number(k) === n)));
     };
     const tour = (n) => {
       if (!touring) {
         return;
       }
-      select(n, false);
-      timer = setTimeout(() => tour((n % steps.length) + 1), 3200);
+      select(n);
+      timer = setTimeout(() => tour((n % 4) + 1), 3200);
     };
-    steps.forEach((button, index) => {
-      const n = index + 1;
-      button.addEventListener("click", () => {
-        stopTour();
-        select(n, false);
-      });
-      button.addEventListener("mouseenter", () => {
-        stopTour();
-        select(n, false);
-      });
-      // Souris partie : l'étape ne reste pas allumée, la visite reprend à l'étape suivante.
-      button.addEventListener("mouseleave", () => {
-        if (touring) {
-          return;
-        }
-        touring = true;
-        clearTimeout(timer);
-        timer = setTimeout(() => tour((n % steps.length) + 1), 900);
-      });
+    const pause = (n) => {
+      touring = false;
+      clearTimeout(timer);
+      select(n);
+    };
+    const resume = (n) => {
+      if (touring) {
+        return;
+      }
+      touring = true;
+      clearTimeout(timer);
+      timer = setTimeout(() => tour((n % 4) + 1), 900);
+    };
+    const stepOf = (button) => Number(Object.entries(steps()).find(([, b]) => b === button)?.[0] ?? 1);
+    flow.querySelectorAll(".fl-step").forEach((button) => {
+      button.addEventListener("mouseenter", () => pause(stepOf(button)));
+      button.addEventListener("mouseleave", () => resume(stepOf(button)));
+      button.addEventListener("focus", () => pause(stepOf(button)));
+      button.addEventListener("click", () => pause(stepOf(button)));
       button.addEventListener("keydown", (event) => {
         const move = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
         if (move) {
           event.preventDefault();
-          stopTour();
-          select(((index + move + steps.length) % steps.length) + 1, true);
+          const next = ((stepOf(button) - 1 + move + 4) % 4) + 1;
+          steps()[next].focus();
         }
       });
     });
-    select(1, false);
-    // Vue acheteur / vue fabricant : les flèches du haut changent de sens, les étapes 01 et 02 changent de côté.
-    const viewButtons = [...document.querySelectorAll(".how-view-btn")];
-    viewButtons.forEach((button) => button.addEventListener("click", () => {
-      const view = button.dataset.view;
-      viewButtons.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
-      how.classList.toggle("is-maker-view", view === "maker");
-      links.forEach((link) => {
-        if (link.dataset[view]) {
-          link.setAttribute("d", link.dataset[view]);
-          link.classList.remove("is-redraw");
-          // Relance l'animation de tracé de la flèche.
-          link.getBoundingClientRect();
-          link.classList.add("is-redraw");
-        }
-      });
-      select(Number(how.dataset.active || 1), false);
-    }));
-    // Bulles d'info des icônes : survol ou focus (CSS) ; au toucher, un appui ouvre la bulle, un autre la ferme.
-    const hits = [...how.querySelectorAll(".how-hit")];
-    hits.forEach((hit) => hit.addEventListener("click", () => {
-      const open = !hit.classList.contains("is-open");
-      hits.forEach((other) => other.classList.remove("is-open"));
-      hit.classList.toggle("is-open", open);
+    // Choix de la vue, gardé pendant la visite (session du navigateur).
+    const setView = (view) => {
+      flow.dataset.view = view;
+      viewButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
+      select(Number(flow.dataset.active || 1));
+      try {
+        sessionStorage.setItem("altis-how-view", view);
+      }
+      catch {
+        // Navigation privée : le choix n'est pas gardé.
+      }
+    };
+    viewButtons.forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
+    let savedView = null;
+    try {
+      savedView = sessionStorage.getItem("altis-how-view");
+    }
+    catch {
+      savedView = null;
+    }
+    setView(savedView === "maker" ? "maker" : "buyer");
+    // Bulles d'info au toucher : un appui ouvre, un autre (ou ailleurs) ferme.
+    const nodes = [...flow.querySelectorAll(".fl-node")];
+    nodes.forEach((nodeButton) => nodeButton.addEventListener("click", () => {
+      const open = !nodeButton.classList.contains("is-open");
+      nodes.forEach((other) => other.classList.remove("is-open"));
+      nodeButton.classList.toggle("is-open", open);
     }));
     document.addEventListener("click", (event) => {
-      if (!event.target.closest(".how-hit")) {
-        hits.forEach((hit) => hit.classList.remove("is-open"));
+      if (!event.target.closest(".fl-node")) {
+        nodes.forEach((nodeButton) => nodeButton.classList.remove("is-open"));
       }
     });
-    const start = () => {
-      how.classList.add("is-drawn");
-      timer = setTimeout(() => tour(1), reduceMotion ? 0 : 2000);
-    };
     if ("IntersectionObserver" in window && !reduceMotion) {
       new IntersectionObserver(([entry], observer) => {
         if (entry.isIntersecting) {
-          start();
+          flow.classList.add("is-drawn");
+          timer = setTimeout(() => tour(1), 1200);
           observer.disconnect();
         }
-      }, { threshold: 0.35 }).observe(how);
+      }, { threshold: 0.35 }).observe(flow);
     }
     else {
-      how.classList.add("is-drawn");
+      flow.classList.add("is-drawn");
     }
   }
 

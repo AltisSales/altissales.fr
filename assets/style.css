@@ -699,3 +699,186 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
   .how-diagram.is-maker-view #how-step-2 { --x: 22% !important; }
   .how-diagram.is-maker-view #how-step-1 { --x: 79% !important; }
 }
+
+/* ---------- How it works v6 : Acheteur | ALTIS SALES | Fabricant, flèches droites, vue acheteur / fabricant ---------- */
+.how .how-view { margin: 6px auto 46px; }
+.fl { max-width: 1000px; margin: 0 auto; }
+.fl-row { display: grid; grid-template-columns: auto minmax(120px, 1fr) auto minmax(120px, 1fr) auto; align-items: center; column-gap: 14px; }
+.fl-node { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: help; }
+.fl-disc { position: relative; display: grid; place-items: center; width: 124px; height: 124px; border-radius: 50%; background: var(--navy-2); border: 2px solid var(--gold); transition: box-shadow 0.3s, border-color 0.3s; }
+.fl-disc .icon-b { width: 58px; height: 58px; }
+.fl-node-altis .fl-disc { width: 176px; height: 176px; background: var(--navy); border-color: var(--gold-light); box-shadow: 0 0 34px rgba(203, 165, 113, 0.28); }
+.fl-node-altis img { width: 96px; height: auto; }
+.fl-ring { position: absolute; inset: -18px; border: 2px dashed var(--gold); border-radius: 50%; animation: spin 18s linear infinite; }
+.fl-name { font-weight: 700; font-size: 0.85rem; letter-spacing: 2.5px; text-transform: uppercase; color: #dfe3e6; }
+.fl-node-altis .fl-name { order: -1; color: var(--gold-light); }
+.fl-node:hover .fl-disc, .fl-node:focus-visible .fl-disc, .fl-node.is-open .fl-disc { border-color: var(--gold-light); box-shadow: 0 0 22px rgba(241, 214, 166, 0.45); }
+.fl-node:focus-visible { outline: none; }
+.fl-node:focus-visible .fl-disc { outline: 2px solid var(--gold-light); outline-offset: 6px; }
+
+/* Flèches : ligne + pointe, point lumineux qui la parcourt dans le sens de la vue */
+.fl-link { --on: 0; position: relative; display: flex; align-items: center; justify-content: center; min-height: 70px; }
+.fl-line { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; transition: background 0.3s, box-shadow 0.3s; }
+.fl-link .fl-line { background: rgba(203, 165, 113, calc(0.35 + (var(--on) * 0.55))); box-shadow: 0 0 calc(var(--on) * 10px) rgba(241, 214, 166, 0.6); }
+.fl-line::after { content: ""; position: absolute; top: 50%; width: 0; height: 0; margin-top: -7px; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.fl[data-view="buyer"] .fl-line::after { right: -2px; border-left: 12px solid var(--gold); }
+.fl[data-view="maker"] .fl-line::after { left: -2px; border-right: 12px solid var(--gold); }
+.fl-dot { position: absolute; top: 50%; left: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #f6e2bd; box-shadow: 0 0 10px rgba(246, 226, 189, 0.95); opacity: var(--on); transition: opacity 0.3s; }
+@keyframes fl-run { from { left: 0; } to { left: 100%; } }
+@keyframes fl-run-back { from { left: 100%; } to { left: 0; } }
+.fl.is-drawn .fl-dot { animation: fl-run 1.8s linear infinite; }
+.fl[data-view="maker"].is-drawn .fl-dot { animation-name: fl-run-back; }
+/* Étape active : sa flèche s'allume et le point la parcourt. */
+.fl[data-view="buyer"][data-active="1"] .fl-link-left, .fl[data-view="buyer"][data-active="2"] .fl-link-right,
+.fl[data-view="maker"][data-active="1"] .fl-link-right, .fl[data-view="maker"][data-active="2"] .fl-link-left,
+.fl[data-active="3"] .fl-link, .fl[data-active="4"] .fl-link { --on: 1; }
+/* 03 : ALTIS SALES met en contact (les points partent du centre) ; 04 : accord direct (va-et-vient). */
+.fl[data-active="3"] .fl-node-altis .fl-disc { box-shadow: 0 0 46px rgba(241, 214, 166, 0.55); }
+.fl.is-drawn[data-active="3"] .fl-link-left .fl-dot { animation-name: fl-run-back; }
+.fl.is-drawn[data-active="3"] .fl-link-right .fl-dot { animation-name: fl-run; }
+.fl[data-active="4"] .fl-node-buyer .fl-disc, .fl[data-active="4"] .fl-node-maker .fl-disc { border-color: var(--gold-light); box-shadow: 0 0 26px rgba(241, 214, 166, 0.5); }
+.fl.is-drawn[data-active="4"] .fl-dot { animation: fl-run 2.4s ease-in-out infinite alternate; }
+
+/* Étiquettes d'étapes */
+.fl-step { position: relative; z-index: 1; display: inline-grid; grid-template-columns: auto auto; column-gap: 9px; align-items: center; padding: 7px 14px 7px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(20, 24, 27, 0.97); color: #dfe3e6; font: inherit; text-align: left; cursor: pointer; transition: border-color 0.25s, background 0.25s; }
+.fl-step b { display: inline-flex; width: 30px; height: 30px; border-radius: 50%; align-items: center; justify-content: center; background: var(--navy-2); border: 1px solid var(--gold); color: var(--gold-light); font-size: 0.8rem; }
+.fl-step-text { display: flex; flex-direction: column; }
+.fl-step-title { font-weight: 700; font-size: 0.95rem; line-height: 1.15; white-space: nowrap; }
+.fl-step-label { font-size: 0.75rem; color: #8d979e; line-height: 1.2; white-space: nowrap; }
+.fl-step[aria-pressed="true"], .fl-step:hover { border-color: var(--gold); background: rgba(40, 33, 24, 0.97); }
+.fl-step[aria-pressed="true"] b { background: var(--gold); color: var(--navy); }
+.fl-step[aria-pressed="true"] .fl-step-title { color: var(--gold-light); }
+.fl-step:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+.fl[data-view="buyer"] .for-maker, .fl[data-view="maker"] .for-buyer { display: none; }
+.fl-under { display: flex; justify-content: center; gap: 14px; margin-top: 26px; }
+
+/* Bulles d'info (icônes et étapes) */
+.fl .how-tip { z-index: 6; }
+.fl-tip-above { bottom: calc(100% + 12px); }
+.fl-tip-below { top: calc(100% + 10px); }
+.fl-node:hover .how-tip, .fl-node:focus-visible .how-tip, .fl-node.is-open .how-tip,
+.fl-step:hover .how-tip, .fl-step:focus-visible .how-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.fl-node-buyer .how-tip { left: 0; transform: translate(0, 6px); }
+.fl-node-buyer:hover .how-tip, .fl-node-buyer:focus-visible .how-tip, .fl-node-buyer.is-open .how-tip { transform: translate(0, 0); }
+.fl-node-maker .how-tip { left: auto; right: 0; transform: translate(0, 6px); }
+.fl-node-maker:hover .how-tip, .fl-node-maker:focus-visible .how-tip, .fl-node-maker.is-open .how-tip { transform: translate(0, 0); }
+.fl-step .how-tip span span { display: block; }
+.fl-step .how-tip > span::before { content: none; }
+
+/* Tablette : plus serré */
+@media (max-width: 980px) {
+  .fl-row { column-gap: 8px; grid-template-columns: auto minmax(90px, 1fr) auto minmax(90px, 1fr) auto; }
+  .fl-disc { width: 100px; height: 100px; }
+  .fl-disc .icon-b { width: 48px; height: 48px; }
+  .fl-node-altis .fl-disc { width: 140px; height: 140px; }
+  .fl-node-altis img { width: 78px; }
+  .fl-step { padding: 5px 10px 5px 6px; }
+  .fl-step b { width: 26px; height: 26px; }
+  .fl-step-title { font-size: 0.82rem; }
+  .fl-row .fl-step-label { display: none; }
+}
+
+/* Téléphone : colonne verticale, flèches vers le bas (acheteur) ou vers le haut (fabricant) */
+@keyframes fl-run-v { from { top: 0; } to { top: 100%; } }
+@keyframes fl-run-v-back { from { top: 100%; } to { top: 0; } }
+@media (max-width: 680px) {
+  .fl-row { display: flex; flex-direction: column; align-items: center; }
+  .fl-link { width: 100%; min-height: 96px; }
+  .fl-line { left: 50%; right: auto; top: 0; bottom: 0; width: 2px; height: auto; margin: 0 0 0 -1px; }
+  .fl-line::after { left: 50% !important; right: auto !important; margin: 0 0 0 -7px; border-left: 7px solid transparent !important; border-right: 7px solid transparent !important; border-top: 0; border-bottom: 0; }
+  .fl[data-view="buyer"] .fl-line::after { top: auto; bottom: -2px; border-top: 12px solid var(--gold); }
+  .fl[data-view="maker"] .fl-line::after { top: -2px; border-bottom: 12px solid var(--gold); }
+  .fl-dot { left: 50%; top: 0; }
+  .fl.is-drawn .fl-dot { animation-name: fl-run-v; }
+  .fl[data-view="maker"].is-drawn .fl-dot { animation-name: fl-run-v-back; }
+  .fl.is-drawn[data-active="3"] .fl-link-left .fl-dot { animation-name: fl-run-v-back; }
+  .fl.is-drawn[data-active="3"] .fl-link-right .fl-dot { animation-name: fl-run-v; }
+  .fl.is-drawn[data-active="4"] .fl-dot { animation-name: fl-run-v; }
+  .fl-node-altis .fl-name { order: 0; }
+  .fl-row .fl-step-label { display: block; }
+  .fl-under { flex-wrap: wrap; }
+  .fl-node-buyer .how-tip, .fl-node-maker .how-tip { left: 50%; right: auto; transform: translate(-50%, 6px); }
+  .fl-node-buyer:hover .how-tip, .fl-node-maker:hover .how-tip, .fl-node-buyer.is-open .how-tip, .fl-node-maker.is-open .how-tip { transform: translate(-50%, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .fl-dot { display: none; } .fl-ring { animation: none; } }
+/* Noms sous / au-dessus des disques sans décaler l'alignement des flèches sur le centre des disques */
+.fl-row { padding: 34px 0 30px; }
+.fl-name { position: absolute; left: 50%; transform: translateX(-50%); top: calc(100% + 12px); white-space: nowrap; }
+.fl-node-altis .fl-name { top: auto; bottom: calc(100% + 26px); }
+.fl-under { margin-top: 10px; }
+@media (max-width: 680px) {
+  .fl-row { padding: 30px 0 34px; }
+  .fl-node { margin: 0 0 26px; }
+  .fl-node-altis { margin: 30px 0 0; }
+  .fl-node-altis .fl-name { bottom: calc(100% + 24px); }
+}
+/* Flèches 20 % plus courtes (centrées entre les disques) */
+.fl-line { left: 10%; right: 10%; }
+@media (max-width: 680px) {
+  .fl-line { left: 50%; right: auto; top: 10%; bottom: 10%; }
+  /* Noms dans le flux sur téléphone : aucune flèche ne les traverse. */
+  .fl-name { position: static; transform: none; }
+  .fl-node, .fl-node-altis { margin: 0; gap: 10px; }
+  .fl-node-altis { gap: 30px; }
+  .fl-node-altis .fl-name { order: -1; margin-bottom: -8px; }
+}
+/* Téléphone : étiquettes 01 / 02 à gauche de la flèche */
+@media (max-width: 680px) {
+  .fl-link { justify-content: flex-end; padding-right: calc(50% + 14px); box-sizing: border-box; }
+  .fl-link .fl-step { padding: 5px 10px 5px 5px; column-gap: 7px; }
+  .fl-link .fl-step b { width: 26px; height: 26px; font-size: 0.72rem; }
+  .fl-link .fl-step-title { font-size: 0.82rem; }
+  .fl-link .fl-step-label { font-size: 0.7rem; }
+  .fl-link .how-tip { left: auto; right: 0; transform: translate(0, 6px); }
+  .fl-link .fl-step:hover .how-tip, .fl-link .fl-step:focus-visible .how-tip { transform: translate(0, 0); }
+}
+
+/* 03 / 04 rattachés à ALTIS SALES : tige depuis le A, puis une branche vers chaque étape */
+.fl-under { --branch: rgba(203, 165, 113, 0.45); position: relative; padding-top: 34px; margin-top: 0; }
+.fl-under::before { content: ""; position: absolute; left: 50%; top: -38px; height: 56px; width: 2px; margin-left: -1px; background: var(--branch); transition: background 0.3s, box-shadow 0.3s; }
+.fl-under > .fl-step::before { content: ""; position: absolute; left: 50%; top: -16px; height: 16px; width: 2px; margin-left: -1px; background: var(--branch); transition: background 0.3s; }
+.fl-under > .fl-step::after { content: ""; position: absolute; top: -16px; height: 2px; background: var(--branch); transition: background 0.3s; }
+.fl-under > .fl-step:first-child::after { left: 50%; right: -8px; }
+.fl-under > .fl-step:last-child::after { left: -8px; right: 50%; }
+.fl[data-active="3"] .fl-under, .fl[data-active="4"] .fl-under { --branch: rgba(241, 214, 166, 0.95); }
+.fl[data-active="3"] .fl-under::before, .fl[data-active="4"] .fl-under::before { box-shadow: 0 0 10px rgba(241, 214, 166, 0.6); }
+/* 04 : ALTIS SALES s'allume aussi (il accompagne jusqu'à l'accord), avec acheteur et fabricant qui signent. */
+.fl[data-active="4"] .fl-node-altis .fl-disc { box-shadow: 0 0 46px rgba(241, 214, 166, 0.55); }
+@media (max-width: 680px) { .fl-under::before, .fl-under > .fl-step::before, .fl-under > .fl-step::after { display: none; } .fl-under { padding-top: 0; margin-top: 18px; } }
+
+/* Ordinateur : comme avant (pas de branche, 04 n'allume pas le A). Téléphone uniquement : petit A au-dessus de 03 / 04 + branche. */
+@media (min-width: 681px) {
+  .fl-under::before, .fl-under > .fl-step::before, .fl-under > .fl-step::after { display: none; }
+  .fl-under { padding-top: 0; margin-top: 10px; }
+  .fl[data-active="4"] .fl-node-altis .fl-disc { box-shadow: 0 0 34px rgba(203, 165, 113, 0.28); }
+}
+@media (max-width: 680px) {
+  .fl-under { padding-top: 78px; margin-top: 22px; }
+  .fl-under::before { display: block; top: 0; width: 46px; height: 46px; margin-left: -23px; border-radius: 50%; border: 2px solid var(--gold); background: var(--navy) url("logo-mark.webp") center / 26px auto no-repeat; box-shadow: none; }
+  .fl-under::after { content: ""; position: absolute; left: 50%; top: 46px; width: 2px; height: 16px; margin-left: -1px; background: var(--branch); }
+  .fl-under > .fl-step::before, .fl-under > .fl-step::after { display: block; }
+  .fl[data-active="3"] .fl-under::before, .fl[data-active="4"] .fl-under::before { border-color: var(--gold-light); box-shadow: 0 0 14px rgba(241, 214, 166, 0.6); }
+}
+/* 04 Agreement : les trois parties brillent (ordinateur et téléphone) */
+.fl[data-active="4"] .fl-node-altis .fl-disc { border-color: var(--gold-light); box-shadow: 0 0 46px rgba(241, 214, 166, 0.55); }
+@media (min-width: 681px) { .fl[data-active="4"] .fl-node-altis .fl-disc { box-shadow: 0 0 46px rgba(241, 214, 166, 0.55); } }
+
+/* Téléphone : plus de bloc 03 / 04 en bas ; la bulle du A (au toucher) présente 03 et 04. Ordinateur inchangé. */
+.fl-tip-desk, .fl-tip-phone { display: contents; }
+.fl-tip-phone { display: none; }
+@media (max-width: 680px) {
+  .fl-under { display: none; }
+  .fl-node-altis .fl-tip-desk { display: none; }
+  .fl-node-altis .fl-tip-phone { display: flex; flex-direction: column; gap: 3px; }
+  .fl-node-altis .how-tip { max-width: 230px; }
+  .fl-row { padding-bottom: 10px; }
+}
+.fl-tip-desk::before, .fl-tip-phone::before { content: none !important; }
+/* Téléphone : 03 / 04 dans la bulle du A, au même style doré que les étapes 01 / 02 */
+.fl-tip-phone .fl-mini { display: flex; align-items: center; gap: 9px; padding: 5px 10px 5px 5px; border-radius: 999px; border: 1px solid var(--gold); background: rgba(40, 33, 24, 0.97); }
+.fl-tip-phone .fl-mini + .fl-mini { margin-top: 6px; }
+.fl-tip-phone .fl-mini::before, .fl-tip-phone .fl-mini span::before { content: none !important; }
+.fl-tip-phone .fl-mini b { flex: none; display: inline-flex; width: 26px; height: 26px; border-radius: 50%; align-items: center; justify-content: center; background: var(--gold); color: var(--navy); font-size: 0.72rem; }
+.fl-tip-phone .fl-mini-text { display: flex; flex-direction: column; }
+.fl-tip-phone .fl-mini-title { font-weight: 700; font-size: 0.82rem; color: var(--gold-light); line-height: 1.2; }
+.fl-tip-phone .fl-mini-label { font-size: 0.7rem; color: #aab2b8; line-height: 1.25; }
