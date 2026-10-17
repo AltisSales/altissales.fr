@@ -882,3 +882,25 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
 .fl-tip-phone .fl-mini-text { display: flex; flex-direction: column; }
 .fl-tip-phone .fl-mini-title { font-weight: 700; font-size: 0.82rem; color: var(--gold-light); line-height: 1.2; }
 .fl-tip-phone .fl-mini-label { font-size: 0.7rem; color: #aab2b8; line-height: 1.25; }
+
+/* Téléphone, vue fabricant : Fabricant en haut, Acheteur en bas ; les flèches descendent dans les deux vues. */
+@media (max-width: 680px) {
+  .fl[data-view="maker"] .fl-row { flex-direction: column-reverse; }
+  .fl[data-view="maker"] .fl-line::after { top: auto; bottom: -2px; border-top: 12px solid var(--gold); border-bottom: 0; }
+  .fl[data-view="maker"].is-drawn .fl-dot { animation-name: fl-run-v; }
+  /* 03 : les points partent du A vers le haut et vers le bas. */
+  .fl[data-view="maker"].is-drawn[data-active="3"] .fl-link-left .fl-dot { animation-name: fl-run-v; }
+  .fl[data-view="maker"].is-drawn[data-active="3"] .fl-link-right .fl-dot { animation-name: fl-run-v-back; }
+}
+@media (max-width: 680px) {
+  .fl-link .fl-step { max-width: calc(50vw - 30px); }
+  .fl-link .fl-step-title, .fl-link .fl-step-label { white-space: normal; }
+}
+/* Téléphone : A un peu plus petit et espace sous l'anneau, la flèche du bas ne touche plus l'anneau en pointillés */
+@media (max-width: 680px) {
+  .fl-node-altis .fl-disc { width: 150px; height: 150px; }
+  .fl-node-altis img { width: 82px; }
+  .fl-ring { inset: -14px; }
+  .fl-node-altis { margin-bottom: 22px; }
+}
+@media (max-width: 680px) { .fl-node-altis { margin-bottom: 36px; } }
