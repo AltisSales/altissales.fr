@@ -904,3 +904,20 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
   .fl-node-altis { margin-bottom: 22px; }
 }
 @media (max-width: 680px) { .fl-node-altis { margin-bottom: 36px; } }
+
+/* Ordinateur, vue fabricant : Fabricant à gauche, Acheteur à droite ; les flèches vont toujours de gauche à droite. */
+@media (min-width: 681px) {
+  .fl[data-view="maker"] .fl-node-maker { order: 1; }
+  .fl[data-view="maker"] .fl-link-right { order: 2; }
+  .fl[data-view="maker"] .fl-node-altis { order: 3; }
+  .fl[data-view="maker"] .fl-link-left { order: 4; }
+  .fl[data-view="maker"] .fl-node-buyer { order: 5; }
+  .fl[data-view="maker"] .fl-line::after { left: auto; right: -2px; border-right: 0; border-left: 12px solid var(--gold); }
+  .fl[data-view="maker"].is-drawn .fl-dot { animation-name: fl-run; }
+  /* 03 : les points partent du A vers les deux côtés. */
+  .fl[data-view="maker"].is-drawn[data-active="3"] .fl-link-right .fl-dot { animation-name: fl-run-back; }
+  .fl[data-view="maker"].is-drawn[data-active="3"] .fl-link-left .fl-dot { animation-name: fl-run; }
+  /* Bulles d'info : ancrées côté intérieur de l'écran. */
+  .fl[data-view="maker"] .fl-node-buyer .how-tip { left: auto; right: 0; }
+  .fl[data-view="maker"] .fl-node-maker .how-tip { right: auto; left: 0; }
+}
