@@ -921,3 +921,14 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
   .fl[data-view="maker"] .fl-node-buyer .how-tip { left: auto; right: 0; }
   .fl[data-view="maker"] .fl-node-maker .how-tip { right: auto; left: 0; }
 }
+/* Flèches plus visibles autour des étiquettes 01 / 02 (ordinateur) */
+@media (min-width: 681px) { .fl-line { left: 3%; right: 3%; } }
+@media (min-width: 681px) and (max-width: 980px) { .fl-line { left: 0; right: 0; } .fl-row { column-gap: 2px; } }
+@media (min-width: 981px) { .fl { max-width: 1140px; } .fl-row { column-gap: 8px; } .fl-line { left: 0; right: 0; } }
+/* Ordinateur : les flèches s'arrêtent avant l'anneau en pointillés du A (anneau = 18 px autour du disque). */
+@media (min-width: 681px) {
+  .fl[data-view="buyer"] .fl-link-left .fl-line { left: 0; right: 28px; }
+  .fl[data-view="buyer"] .fl-link-right .fl-line { left: 28px; right: 0; }
+  .fl[data-view="maker"] .fl-link-right .fl-line { left: 0; right: 28px; }
+  .fl[data-view="maker"] .fl-link-left .fl-line { left: 28px; right: 0; }
+}
