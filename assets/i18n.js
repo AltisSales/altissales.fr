@@ -95,7 +95,6 @@
     "Orders & pays the manufacturer": "Commande & paie le fabricant",
     "Assessed partner": "Partenaire évalué",
     "Quotes you directly": "Vous chiffre en direct",
-    "Direct contract": "Contrat direct",
     "ALTIS SALES": "ALTIS SALES",
     "DIRECT CONTRACT": "CONTRAT DIRECT",
     "BUYER": "ACHETEUR",
