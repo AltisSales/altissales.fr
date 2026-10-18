@@ -62,7 +62,7 @@
     "Aluminium, steel, stainless, brass, titanium": "Aluminium, acier, inox, laiton, titane",
     "POM, PA, PEEK": "POM, PA, PEEK",
     "For:": "Pour :",
-    "machine builders, engineering, maintenance": "constructeurs de machines, bureaux d'études, maintenance",
+    "industrial manufacturers, engineering, maintenance": "fabricants industriels, bureaux d'études, maintenance",
     "Find a manufacturer for this": "Trouver un fabricant",
     "Mold components & standard parts": "Composants de moules & pièces standards",
     "Mold and tooling components, compatible with common catalog standards.": "Composants de moules et d'outillages, compatibles avec les standards catalogue courants.",
@@ -81,7 +81,7 @@
     "Machining, grinding, treatments": "Usinage, rectification, traitements",
     "Single parts to small series": "De la pièce unique à la petite série",
     "Reverse engineering": "Rétro-ingénierie",
-    "industrial manufacturers, maintenance": "industriels, maintenance",
+    "industrial manufacturers, maintenance": "fabricants industriels, maintenance",
     // Fonctionnement
     "Four stops from your need to an agreement": "Quatre étapes, de votre besoin à l'accord",
     "Three sides, one agreement": "Trois parties, un accord",
@@ -136,7 +136,7 @@
     "Procurement and purchasing": "Les services achats",
     "Engineering and R&D": "Les bureaux d'études et la R&D",
     "Mold makers and plastics processors": "Les moulistes et plasturgistes",
-    "Machine builders": "Les constructeurs de machines",
+    "Industrial manufacturers": "Les fabricants industriels",
     "Manufacturers seeking European customers": "Les fabricants qui cherchent des clients en Europe",
     // FAQ
     "Frequently asked questions": "Questions fréquentes",
