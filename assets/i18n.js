@@ -21,7 +21,7 @@
     "French & English": "Français & anglais",
     "BUYERS": "ACHETEURS",
     "MANUFACTURERS": "FABRICANTS",
-    "We find, assess and introduce. You agree directly.": "Nous trouvons, évaluons et présentons. Vous vous accordez en direct.",
+    "We find, assess & connect you.": "Nous trouvons, évaluons & vous mettons en relation.",
     // Bandeau
     "Industrial sourcing": "Sourcing industriel",
     "Buyers ↔ manufacturers": "Acheteurs ↔ fabricants",
