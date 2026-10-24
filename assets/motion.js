@@ -32,6 +32,61 @@
       copy.setAttribute("aria-hidden", "true");
       track.append(copy);
     });
+    // Bulle d'info de chaque mot-clé : posée sur la page (le bandeau la couperait), sous le mot survolé ou touché.
+    const ticker = track.parentElement;
+    const bubble = document.createElement("div");
+    bubble.className = "ticker-bubble";
+    bubble.setAttribute("role", "tooltip");
+    document.body.append(bubble);
+    let openItem = null;
+    const hide = () => {
+      bubble.classList.remove("is-on");
+      openItem?.classList.remove("is-open");
+      ticker.classList.remove("is-paused");
+      openItem = null;
+    };
+    const show = (item) => {
+      const text = item.querySelector(".tick-tip")?.textContent;
+      if (!text) {
+        return;
+      }
+      openItem?.classList.remove("is-open");
+      openItem = item;
+      item.classList.add("is-open");
+      ticker.classList.add("is-paused");
+      bubble.textContent = text;
+      const box = item.getBoundingClientRect();
+      const center = box.left + box.width / 2;
+      const half = bubble.offsetWidth / 2;
+      const left = Math.min(Math.max(center, half + 12), window.innerWidth - half - 12);
+      bubble.style.left = `${left}px`;
+      bubble.style.top = `${box.bottom + 10}px`;
+      bubble.style.setProperty("--arrow", `${half + center - left}px`);
+      bubble.classList.add("is-on");
+    };
+    track.addEventListener("mouseover", (event) => {
+      const item = event.target.closest("li");
+      if (item && item !== openItem) {
+        show(item);
+      }
+    });
+    track.addEventListener("mouseleave", hide);
+    // Au toucher : un appui ouvre, un second appui (ou ailleurs) ferme.
+    track.addEventListener("click", (event) => {
+      const item = event.target.closest("li");
+      if (item && item === openItem && event.pointerType !== "mouse") {
+        hide();
+      }
+      else if (item) {
+        show(item);
+      }
+    });
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".ticker-track")) {
+        hide();
+      }
+    });
+    window.addEventListener("scroll", hide, { passive: true });
   }
 
   // "Fields we cover" : un clic sur un domaine affiche son détail (flèches du clavier aussi). Sans JavaScript, tout reste affiché.
@@ -63,23 +118,119 @@
     selectTab(tabs[0], false);
   }
 
-  // "How it works" : vue acheteur ou fabricant (une seule à la fois). Étapes 01-02 sur les flèches, 03-04 sous ALTIS SALES.
-  // Visite automatique des 4 étapes ; survol, clic ou clavier choisissent une étape (le point continue de bouger).
-  const flow = document.querySelector(".fl");
-  if (flow) {
-    const viewButtons = [...document.querySelectorAll(".how-view-btn")];
-    const steps = () => ({
-      1: flow.dataset.view === "buyer" ? flow.querySelector(".fl-step-left") : flow.querySelector(".fl-step-right"),
-      2: flow.dataset.view === "buyer" ? flow.querySelector(".fl-step-right") : flow.querySelector(".fl-step-left"),
-      3: flow.querySelector(".fl-step-3"),
-      4: flow.querySelector(".fl-step-4")
-    });
+  // Point de vue du site (client industriel ou sous-traitant) : choisi dans "How it works" ou dans "Nos services",
+  // gardé pendant la visite. Les blocs .only-client / .only-supplier suivent (voir style.css).
+  const root = document.documentElement;
+  const viewButtons = [...document.querySelectorAll(".view-btn")];
+  const viewListeners = [];
+  const setView = (view, remember) => {
+    root.dataset.view = view;
+    viewButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
+    if (remember) {
+      try {
+        sessionStorage.setItem("altis-view", view);
+      }
+      catch {
+        // Navigation privée : le choix n'est pas gardé.
+      }
+    }
+    viewListeners.forEach((callback) => callback(view));
+  };
+  document.querySelectorAll(".view-btn, .js-view").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view, true)));
+  setView(root.dataset.view === "supplier" ? "supplier" : "client", false);
+
+  // "How it works" : réseau clients industriels | ALTIS SALES | sous-traitants. Les 4 étapes allument les liens tour à tour
+  // et des points lumineux les parcourent dans le sens de l'étape. Visite automatique ; survol, clic ou clavier choisissent une étape.
+  const nx = document.querySelector(".nx");
+  if (nx) {
+    const linksL = [...nx.querySelectorAll(".nx-l")];
+    const linksR = [...nx.querySelectorAll(".nx-r")];
+    const nodesL = [...nx.querySelectorAll(".nx-nodes-l > *")];
+    const nodesR = [...nx.querySelectorAll(".nx-nodes-r > *")];
+    const dotLayer = nx.querySelector(".nx-dots");
+    const stepButtons = [...nx.querySelectorAll(".nx-step")];
+    // Liens de gauche tracés client → ALTIS SALES, liens de droite ALTIS SALES → sous-traitant : 1 = dans ce sens, -1 = à rebours.
+    const plan = (n) => {
+      const client = root.dataset.view !== "supplier";
+      if (n === 1) {
+        return client ? { runs: linksL.map((path) => [path, 1]), lit: nodesL } : { runs: linksR.map((path) => [path, -1]), lit: nodesR };
+      }
+      if (n === 2) {
+        return client ? { runs: linksR.map((path) => [path, 1]), lit: nodesR } : { runs: linksL.map((path) => [path, -1]), lit: nodesL };
+      }
+      if (n === 3) {
+        return { runs: [...linksL.map((path) => [path, -1]), ...linksR.map((path) => [path, 1])], lit: [] };
+      }
+
+      // 04 : un client industriel et un sous-traitant s'accordent, le point fait l'aller-retour entre eux.
+      return { pair: [linksL[1], linksR[0]], lit: [nodesL[1], nodesR[0]] };
+    };
+    let current = plan(1);
+    let active = 1;
+    let dots = [];
+    let start = performance.now();
+    const select = (n) => {
+      active = n;
+      nx.dataset.active = String(n);
+      current = plan(n);
+      stepButtons.forEach((button) => button.setAttribute("aria-pressed", String(Number(button.dataset.step) === n)));
+      const onLinks = current.pair ?? current.runs.map(([path]) => path);
+      [...linksL, ...linksR].forEach((path) => path.classList.toggle("is-on", onLinks.includes(path)));
+      [...nodesL, ...nodesR].forEach((node) => node.classList.toggle("is-on", current.lit.includes(node)));
+      dots = Array.from({ length: current.pair ? 1 : current.runs.length }, () => {
+        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        dot.setAttribute("r", "4");
+
+        return dot;
+      });
+      dotLayer.replaceChildren(...dots);
+      start = performance.now();
+    };
+    const place = (dot, path, t) => {
+      const point = path.getPointAtLength(t * path.getTotalLength());
+      dot.setAttribute("cx", point.x.toFixed(1));
+      dot.setAttribute("cy", point.y.toFixed(1));
+    };
+    // Points animés seulement quand le schéma est à l'écran.
+    let visible = true;
+    let running = false;
+    const frame = (now) => {
+      if (!visible) {
+        running = false;
+
+        return;
+      }
+      const s = (now - start) / 1600;
+      if (current.pair) {
+        const u = s % 2;
+        const v = Math.floor(s / 2) % 2 === 1 ? 2 - u : u;
+        place(dots[0], v < 1 ? current.pair[0] : current.pair[1], v < 1 ? v : v - 1);
+      }
+      else {
+        current.runs.forEach(([path, direction], i) => {
+          const t = (s + i * 0.18) % 1;
+          place(dots[i], path, direction === 1 ? t : 1 - t);
+        });
+      }
+      requestAnimationFrame(frame);
+    };
+    const run = () => {
+      if (!running && !reduceMotion) {
+        running = true;
+        requestAnimationFrame(frame);
+      }
+    };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) {
+          run();
+        }
+      }).observe(nx);
+    }
+
     let timer = 0;
     let touring = true;
-    const select = (n) => {
-      flow.dataset.active = String(n);
-      Object.entries(steps()).forEach(([k, button]) => button.setAttribute("aria-pressed", String(Number(k) === n)));
-    };
     const tour = (n) => {
       if (!touring) {
         return;
@@ -100,66 +251,37 @@
       clearTimeout(timer);
       timer = setTimeout(() => tour((n % 4) + 1), 900);
     };
-    const stepOf = (button) => Number(Object.entries(steps()).find(([, b]) => b === button)?.[0] ?? 1);
-    flow.querySelectorAll(".fl-step").forEach((button) => {
-      button.addEventListener("mouseenter", () => pause(stepOf(button)));
-      button.addEventListener("mouseleave", () => resume(stepOf(button)));
-      button.addEventListener("focus", () => pause(stepOf(button)));
-      button.addEventListener("click", () => pause(stepOf(button)));
+    stepButtons.forEach((button, index) => {
+      const n = Number(button.dataset.step);
+      button.addEventListener("mouseenter", () => pause(n));
+      button.addEventListener("mouseleave", () => resume(n));
+      button.addEventListener("focus", () => pause(n));
+      button.addEventListener("blur", () => resume(n));
+      button.addEventListener("click", () => pause(n));
       button.addEventListener("keydown", (event) => {
         const move = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
         if (move) {
           event.preventDefault();
-          const next = ((stepOf(button) - 1 + move + 4) % 4) + 1;
-          steps()[next].focus();
+          stepButtons[(index + move + 4) % 4].focus();
         }
       });
     });
-    // Choix de la vue, gardé pendant la visite (session du navigateur).
-    const setView = (view) => {
-      flow.dataset.view = view;
-      viewButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
-      select(Number(flow.dataset.active || 1));
-      try {
-        sessionStorage.setItem("altis-how-view", view);
-      }
-      catch {
-        // Navigation privée : le choix n'est pas gardé.
-      }
-    };
-    viewButtons.forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
-    let savedView = null;
-    try {
-      savedView = sessionStorage.getItem("altis-how-view");
-    }
-    catch {
-      savedView = null;
-    }
-    setView(savedView === "maker" ? "maker" : "buyer");
+    viewListeners.push(() => select(active));
     // Bulles d'info au toucher : un appui ouvre, un autre (ou ailleurs) ferme.
-    const nodes = [...flow.querySelectorAll(".fl-node")];
-    nodes.forEach((nodeButton) => nodeButton.addEventListener("click", () => {
-      const open = !nodeButton.classList.contains("is-open");
-      nodes.forEach((other) => other.classList.remove("is-open"));
-      nodeButton.classList.toggle("is-open", open);
+    const hits = [...nx.querySelectorAll(".nx-hit")];
+    hits.forEach((hit) => hit.addEventListener("click", () => {
+      const open = !hit.classList.contains("is-open");
+      hits.forEach((other) => other.classList.remove("is-open"));
+      hit.classList.toggle("is-open", open);
     }));
     document.addEventListener("click", (event) => {
-      if (!event.target.closest(".fl-node")) {
-        nodes.forEach((nodeButton) => nodeButton.classList.remove("is-open"));
+      if (!event.target.closest(".nx-hit")) {
+        hits.forEach((hit) => hit.classList.remove("is-open"));
       }
     });
-    if ("IntersectionObserver" in window && !reduceMotion) {
-      new IntersectionObserver(([entry], observer) => {
-        if (entry.isIntersecting) {
-          flow.classList.add("is-drawn");
-          timer = setTimeout(() => tour(1), 1200);
-          observer.disconnect();
-        }
-      }, { threshold: 0.35 }).observe(flow);
-    }
-    else {
-      flow.classList.add("is-drawn");
-    }
+    select(1);
+    run();
+    timer = setTimeout(() => tour(2), 3200);
   }
 
   // Barre du haut ombrée après défilement, bouton flottant une fois l'accroche passée.

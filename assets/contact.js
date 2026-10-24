@@ -102,10 +102,9 @@
   document.querySelectorAll(".js-quote").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
-      const role = button.dataset.role;
-      if (role) {
-        form.querySelector(`input[name=profil][value=${role}]`).checked = true;
-      }
+      // Sans profil sur le bouton : celui du point de vue choisi sur le site.
+      const role = button.dataset.role || (document.documentElement.dataset.view === "supplier" ? "Manufacturer" : "Buyer");
+      form.querySelector(`input[name=profil][value=${role}]`).checked = true;
       showRole(form.elements.profil.value);
       dialog.showModal();
       formCaptcha.start();

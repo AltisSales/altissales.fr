@@ -932,3 +932,117 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
   .fl[data-view="maker"] .fl-link-right .fl-line { left: 0; right: 28px; }
   .fl[data-view="maker"] .fl-link-left .fl-line { left: 28px; right: 0; }
 }
+
+/* ---------- Rework v8 : bulles du bandeau, À propos, domaines ---------- */
+/* Bandeau : bulle d'info au survol (ou au toucher) de chaque mot-clé */
+.ticker-track li { cursor: help; transition: color 0.2s; }
+.ticker-track li:hover, .ticker-track li.is-open { color: var(--gold-light); }
+.ticker.is-paused .ticker-track { animation-play-state: paused; }
+.ticker-bubble { position: fixed; z-index: 60; max-width: 260px; padding: 9px 13px; border-radius: 10px; background: rgba(12, 15, 18, 0.97); border: 1px solid var(--gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); color: #dfe3e6; font-size: 0.82rem; line-height: 1.35; text-align: center; opacity: 0; visibility: hidden; transform: translate(-50%, 6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; pointer-events: none; }
+.ticker-bubble.is-on { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.ticker-bubble::before { content: ""; position: absolute; top: -6px; left: var(--arrow, 50%); width: 10px; height: 10px; margin-left: -5px; background: inherit; border-left: 1px solid var(--gold); border-top: 1px solid var(--gold); transform: rotate(45deg); }
+
+/* À propos : phrase courte puis les deux activités, séparées */
+.about-lead { font-size: 1.15rem; font-weight: 600; color: var(--navy); margin: 8px 0 20px !important; }
+.about-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.about-points li { padding-left: 16px; border-left: 3px solid var(--gold); }
+.about-points strong { display: block; margin-bottom: 2px; color: var(--navy); font-family: "IBM Plex Sans", "Segoe UI", sans-serif; }
+
+/* Domaines : un bouton pour chaque côté */
+.field-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+
+/* ---------- v9 : un site, deux points de vue (donneur d'ordres / sous-traitant) ---------- */
+[data-view="client"] .only-supplier, [data-view="supplier"] .only-client { display: none !important; }
+
+/* Accroche : texte à gauche, réseau "How it works" interactif à droite */
+.hero-inner { grid-template-columns: 1fr 1.1fr; gap: 48px; }
+.hero h1 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+.hero h1 .shine { display: block; }
+.nx { position: relative; width: 100%; max-width: 540px; margin: 0 auto; text-align: center; }
+.nx .eyebrow { color: var(--gold); text-align: center; }
+.view-switch { display: inline-flex; margin: 4px auto 10px; padding: 4px; border: 1px solid var(--gold); border-radius: 999px; background: rgba(20, 24, 27, 0.9); }
+.view-btn { padding: 8px 16px; border: 0; border-radius: 999px; background: transparent; color: #aab2b8; font: 600 0.88rem "IBM Plex Sans", "Segoe UI", sans-serif; cursor: pointer; transition: background 0.25s, color 0.25s; }
+.view-btn[aria-pressed="true"] { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--navy); }
+.view-btn:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.nx-stage { position: relative; }
+.nx-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.nx-link { fill: none; stroke: rgba(203, 165, 113, 0.4); stroke-width: 1.6; transition: stroke 0.3s, stroke-width 0.3s, filter 0.3s; }
+.nx-link.is-on { stroke: var(--gold-light); stroke-width: 2.4; filter: drop-shadow(0 0 6px rgba(241, 214, 166, 0.6)); }
+.nx-nodes > * { fill: var(--navy-2); stroke: var(--gold); stroke-width: 2; transition: stroke 0.3s, filter 0.3s; }
+.nx-nodes > .is-on,
+.nx-stage:has(.nx-hit-l:hover, .nx-hit-l.is-open) .nx-nodes-l > *,
+.nx-stage:has(.nx-hit-r:hover, .nx-hit-r.is-open) .nx-nodes-r > * { stroke: var(--gold-light); filter: drop-shadow(0 0 10px rgba(241, 214, 166, 0.55)); }
+.nx-hub { fill: var(--navy); stroke: var(--gold-light); stroke-width: 2; transition: filter 0.3s; }
+.nx[data-active="3"] .nx-hub, .nx[data-active="4"] .nx-hub, .nx-stage:has(.nx-hit-hub:hover, .nx-hit-hub.is-open) .nx-hub { filter: drop-shadow(0 0 18px rgba(241, 214, 166, 0.6)); }
+.nx-ring { fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-dasharray: 6 6; transform-box: fill-box; transform-origin: center; animation: spin 18s linear infinite; }
+.nx-dots circle { fill: #f6e2bd; filter: drop-shadow(0 0 6px rgba(246, 226, 189, 0.95)); }
+.nx-name { position: absolute; top: 91%; color: #aab2b8; font: 600 0.72rem "IBM Plex Sans", "Segoe UI", sans-serif; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+.nx-name-l { left: 0; }
+.nx-name-r { right: 0; }
+.nx-hit { position: absolute; top: 50%; padding: 0; border: 0; border-radius: 14px; background: transparent; cursor: help; transform: translate(-50%, -50%); }
+.nx-hit-l { left: 9.6%; width: 13%; height: 76%; }
+.nx-hit-r { left: 90.8%; width: 13%; height: 76%; }
+.nx-hit-hub { left: 50%; width: 24%; aspect-ratio: 1; border-radius: 50%; }
+.nx-hit:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.nx-hit .how-tip { top: 50%; z-index: 7; transform: translate(0, -50%); }
+.nx-hit-l .how-tip { left: calc(100% + 6px); }
+.nx-hit-r .how-tip { left: auto; right: calc(100% + 6px); }
+.nx-hit-hub .how-tip { top: auto; bottom: calc(100% + 4px); left: 50%; transform: translate(-50%, 0); }
+.nx-hit:hover .how-tip, .nx-hit:focus-visible .how-tip, .nx-hit.is-open .how-tip { opacity: 1; visibility: visible; }
+.nx-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.nx-step { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px 6px 6px; border: 1px solid var(--line); border-radius: 999px; background: rgba(20, 24, 27, 0.95); color: #dfe3e6; font: 700 0.85rem "IBM Plex Sans", "Segoe UI", sans-serif; cursor: pointer; transition: border-color 0.25s, background 0.25s; }
+.nx-step b { display: inline-flex; width: 26px; height: 26px; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 50%; background: var(--navy-2); color: var(--gold-light); font-size: 0.74rem; }
+.nx-step[aria-pressed="true"], .nx-step:hover { border-color: var(--gold); background: rgba(40, 33, 24, 0.97); }
+.nx-step[aria-pressed="true"] b { background: var(--gold); color: var(--navy); }
+.nx-step[aria-pressed="true"] .nx-step-title { color: var(--gold-light); }
+.nx-step:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+.nx-step .how-tip { bottom: calc(100% + 10px); z-index: 7; font-weight: 400; }
+.nx-step:hover .how-tip, .nx-step:focus-visible .how-tip { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.nx-step .how-tip > span::before { content: none; }
+.nx-step .how-tip > span > span { display: block; }
+.nx-line { margin: 16px 0 0; color: #8d979e; font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; }
+@media (max-width: 900px) { .hero-inner { gap: 36px; } }
+@media (max-width: 760px) {
+  .view-btn { padding: 6px 11px; font-size: 0.78rem; }
+  .nx-name { font-size: 0.6rem; letter-spacing: 1.2px; }
+  .nx-step { font-size: 0.78rem; padding-right: 11px; }
+  .nx-step b { width: 24px; height: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .nx-dots { display: none; } }
+
+/* Nos services : la carte du point de vue choisi, et une carte pour passer à l'autre */
+[data-view] .sides { grid-template-columns: 2fr 1fr; }
+.sides .side-switch { justify-content: center; align-items: flex-start; background: transparent; border: 1px dashed var(--gold); border-top: 4px solid var(--gold); }
+.side-switch p { margin: 0 0 14px; color: var(--muted); }
+.side-switch .btn-ghost { color: var(--copper) !important; }
+@media (max-width: 760px) { [data-view] .sides { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+
+/* Choix du point de vue : centré en haut de l'accroche, plus grand */
+.hero-view { position: relative; text-align: center; margin: 0 auto 34px; }
+.hero-view .eyebrow { color: var(--gold); font-size: 0.85rem; }
+.hero-view .view-switch { margin: 8px auto 0; padding: 5px; }
+.hero-view .view-btn { padding: 12px 28px; font-size: 1.05rem; }
+@media (max-width: 760px) { .hero-view { margin-bottom: 26px; } .hero-view .view-btn { padding: 9px 14px; font-size: 0.86rem; } }
+
+/* Domaines v2 : trois cartes courtes, sans onglets */
+.scope { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.scope-card { padding: 26px; border-radius: 12px; background: rgba(20, 24, 27, 0.86); border: 1px solid var(--line); border-top: 4px solid var(--gold); backdrop-filter: blur(4px); transition: transform 0.25s, border-color 0.25s; }
+.scope-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.scope-card .icon { width: 42px; height: 42px; }
+.scope-card h3 { margin: 12px 0 6px; color: var(--gold-light); font-size: 1.2rem; }
+.scope-card p { margin: 0 0 14px; color: #c9ced2; font-size: 0.95rem; }
+.scope-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.scope-chips li { padding: 3px 10px; border: 1px solid rgba(203, 165, 113, 0.55); border-radius: 999px; color: #dfe3e6; font-size: 0.78rem; }
+.scope-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; margin-top: 26px; text-align: center; }
+.scope-foot p { margin: 0; color: #dfe3e6; }
+@media (max-width: 900px) { .scope { grid-template-columns: 1fr; } }
+/* Domaines v3 : qui nous mettons en relation avec qui */
+.scope-sides { margin: 0; display: grid; gap: 8px; }
+.scope-sides div { padding-left: 10px; border-left: 2px solid rgba(203, 165, 113, 0.6); }
+.scope-sides dt { color: var(--gold); font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.scope-sides dd { margin: 0; color: #dfe3e6; font-size: 0.9rem; }
+/* À propos v3 : texte à gauche, photo à droite */
+.about { grid-template-columns: 1fr 1fr; align-items: center; }
+.about .role-photo { margin: 0; }
+@media (max-width: 900px) { .about { grid-template-columns: 1fr; } }

@@ -20,8 +20,8 @@
   <meta name="theme-color" content="#14181b">
   <link rel="icon" type="image/png" href="assets/logo-mark.png">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=65">
-  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="assets/style.css?v=71">
+  <script>document.documentElement.classList.add("js");try{document.documentElement.dataset.view=sessionStorage.getItem("altis-view")==="supplier"?"supplier":"client";}catch(e){document.documentElement.dataset.view="client";}</script>
 </head>
 <body>
   <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
@@ -34,8 +34,8 @@
   <header class="topbar">
     <a class="brand" href="#"><img src="assets/logo-mark.webp" alt="" width="40" height="35"><span>ALTIS <em>SALES</em></span></a>
     <nav>
-      <a href="#sides">Buyers &amp; manufacturers</a>
       <a href="#approach">How it works</a>
+      <a href="#sides">Our services</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
       <a href="#contact" class="btn btn-small js-quote">Contact us</a>
@@ -48,200 +48,143 @@
   <main>
     <section class="hero">
       <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-view">
+        <p class="eyebrow">How it works</p>
+        <div class="view-switch" role="group" aria-label="Point of view">
+          <button type="button" class="view-btn" data-view="client" aria-pressed="true">I need a supplier</button>
+          <button type="button" class="view-btn" data-view="supplier" aria-pressed="false">I'm a supplier</button>
+        </div>
+      </div>
       <div class="hero-inner">
         <div class="hero-text">
-          <p class="kicker">Independent Industrial Sourcing &amp; B2B Business Development Partner</p>
-          <h1>Connecting Industrial Buyers with <span class="shine">Qualified Manufacturers.</span></h1>
-          <p class="lead">CNC sourcing, precision manufacturing and international B2B business development.</p>
+          <p class="kicker">Independent industrial business introducer</p>
+          <h1><span class="only-client">The right supplier <span class="shine">for your parts.</span></span><span class="only-supplier">New projects <span class="shine">for your workshop.</span></span></h1>
+          <p class="lead only-client">CNC, precision and tooling suppliers, found and assessed for your drawings.</p>
+          <p class="lead only-supplier">We bring you qualified industrial projects, in Europe and beyond.</p>
           <div class="cta">
-            <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer</a>
-            <a href="#contact" class="btn btn-ghost js-quote" data-role="Manufacturer">Find industrial buyers</a>
+            <a href="#contact" class="btn js-quote only-client" data-role="Buyer">Find a supplier</a>
+            <a href="#contact" class="btn js-quote only-supplier" data-role="Manufacturer">Find new projects</a>
+            <a href="#sides" class="btn btn-ghost">Our services</a>
           </div>
-          <ul class="trust">
-            <li>Not a manufacturer, not a reseller</li>
-            <li>Direct contract between you</li>
-            <li>NDA on request</li>
-            <li>French &amp; English</li>
-          </ul>
         </div>
 
-        <!-- Buyers on the left, manufacturers on the right, ALTIS SALES in the middle: the links light up in turn. -->
-        <figure class="hero-network" aria-hidden="true">
-          <svg viewBox="0 0 440 360" role="presentation">
-            <g class="links">
-              <path d="M78 70 C150 70 160 180 220 180" pathLength="1"/>
-              <path d="M78 180 C150 180 160 180 220 180" pathLength="1"/>
-              <path d="M78 290 C150 290 160 180 220 180" pathLength="1"/>
-              <path d="M220 180 C280 180 290 70 362 70" pathLength="1"/>
-              <path d="M220 180 C280 180 290 180 362 180" pathLength="1"/>
-              <path d="M220 180 C280 180 290 290 362 290" pathLength="1"/>
-            </g>
-            <g class="pulses">
-              <circle r="4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="0s" path="M78 70 C150 70 160 180 220 180 C280 180 290 180 362 180"/></circle>
-              <circle r="4"><animateMotion dur="3.8s" repeatCount="indefinite" begin="0s" path="M78 290 C150 290 160 180 220 180 C280 180 290 70 362 70"/></circle>
-              <circle r="4"><animateMotion dur="4.4s" repeatCount="indefinite" begin="0s" path="M362 290 C290 290 280 180 220 180 C160 180 150 180 78 180"/></circle>
-            </g>
-            <g class="node buyer"><circle cx="58" cy="70" r="20"/><circle cx="58" cy="180" r="20"/><circle cx="58" cy="290" r="20"/></g>
-            <g class="node maker"><rect x="342" y="50" width="40" height="40" rx="8"/><rect x="342" y="160" width="40" height="40" rx="8"/><rect x="342" y="270" width="40" height="40" rx="8"/></g>
-            <g class="hub"><circle cx="220" cy="180" r="44" class="hub-ring"/><circle cx="220" cy="180" r="34"/></g>
-            <image href="assets/logo-mark.webp" x="196" y="160" width="48" height="41"/>
-            <text x="58" y="336">BUYERS</text>
-            <text x="362" y="336">MANUFACTURERS</text>
-          </svg>
-          <figcaption>We find, assess &amp; connect you.</figcaption>
-        </figure>
+        <!-- How it works: project owners on the left, suppliers on the right, ALTIS SALES in the middle.
+             The switch sets the point of view of the whole site; the 4 steps light up the links in turn. -->
+        <div id="approach" class="nx" data-active="1">
+          <div class="nx-stage">
+            <svg class="nx-svg" viewBox="0 0 520 400" aria-hidden="true">
+              <g class="nx-links"><path class="nx-link nx-l" data-i="0" d="M74 80 C150 80 170 200 200 200"/><path class="nx-link nx-l" data-i="1" d="M74 200 C150 200 170 200 200 200"/><path class="nx-link nx-l" data-i="2" d="M74 320 C150 320 170 200 200 200"/><path class="nx-link nx-r" data-i="0" d="M320 200 C350 200 370 80 448 80"/><path class="nx-link nx-r" data-i="1" d="M320 200 C350 200 370 200 448 200"/><path class="nx-link nx-r" data-i="2" d="M320 200 C350 200 370 320 448 320"/></g>
+              <g class="nx-dots"></g>
+              <g class="nx-nodes nx-nodes-l"><circle data-i="0" cx="50" cy="80" r="24"/><circle data-i="1" cx="50" cy="200" r="24"/><circle data-i="2" cx="50" cy="320" r="24"/></g>
+              <g class="nx-nodes nx-nodes-r"><rect data-i="0" x="448" y="56" width="48" height="48" rx="10"/><rect data-i="1" x="448" y="176" width="48" height="48" rx="10"/><rect data-i="2" x="448" y="296" width="48" height="48" rx="10"/></g>
+              <circle class="nx-ring" cx="260" cy="200" r="60"/>
+              <circle class="nx-hub" cx="260" cy="200" r="48"/>
+              <image href="assets/logo-mark.webp" x="234" y="177" width="52" height="46"/>
+            </svg>
+            <span class="nx-name nx-name-l">Project owners</span>
+            <span class="nx-name nx-name-r">Suppliers</span>
+            <button type="button" class="nx-hit nx-hit-l" aria-describedby="nx-tip-l"><span class="how-tip" id="nx-tip-l" role="tooltip"><strong>Project owners</strong><span>Industrial companies</span><span>Drawings, quantities, lead time</span><span>Order and pay the supplier directly</span></span></button>
+            <button type="button" class="nx-hit nx-hit-hub" aria-describedby="nx-tip-hub"><span class="how-tip" id="nx-tip-hub" role="tooltip"><strong>ALTIS SALES</strong><span>Independent business introducer</span><span>Selects &amp; assesses suppliers</span><span>Introduces both sides</span><span>Mediates until agreement</span></span></button>
+            <button type="button" class="nx-hit nx-hit-r" aria-describedby="nx-tip-r"><span class="how-tip" id="nx-tip-r" role="tooltip"><strong>Suppliers</strong><span>CNC, precision &amp; tooling workshops</span><span>Assessed for each project</span><span>Quote, produce, invoice, deliver</span></span></button>
+          </div>
+          <div class="nx-steps">
+            <button type="button" class="nx-step" data-step="1" aria-describedby="nx-step-1-tip">
+              <b>01</b><span class="nx-step-title"><span class="only-client">Your need</span><span class="only-supplier">Presentation</span></span>
+              <span class="how-tip" id="nx-step-1-tip" role="tooltip"><span class="only-client"><span>Drawings, quantities, lead time</span><span>NDA if wanted</span></span><span class="only-supplier"><span>Your processes, machines, certifications</span><span>Presented to qualified project owners</span></span></span>
+            </button>
+            <button type="button" class="nx-step" data-step="2" aria-describedby="nx-step-2-tip">
+              <b>02</b><span class="nx-step-title"><span class="only-client">Selection</span><span class="only-supplier">Prospecting</span></span>
+              <span class="how-tip" id="nx-step-2-tip" role="tooltip"><span class="only-client"><span>Suppliers selected &amp; assessed</span><span>Capabilities and references</span></span><span class="only-supplier"><span>Qualified project owners</span><span>In Europe and beyond</span></span></span>
+            </button>
+            <button type="button" class="nx-step" data-step="3" aria-describedby="nx-step-3-tip">
+              <b>03</b><span class="nx-step-title"><span class="only-client">Introduction</span><span class="only-supplier">Introduction</span></span>
+              <span class="how-tip" id="nx-step-3-tip" role="tooltip"><span class="only-client"><span>We put you in touch</span><span>Files shared under NDA</span></span><span class="only-supplier"><span>We put you in touch</span><span>Files shared under NDA</span></span></span>
+            </button>
+            <button type="button" class="nx-step" data-step="4" aria-describedby="nx-step-4-tip">
+              <b>04</b><span class="nx-step-title"><span class="only-client">Agreement</span><span class="only-supplier">Agreement</span></span>
+              <span class="how-tip" id="nx-step-4-tip" role="tooltip"><span class="only-client"><span>Direct contract between you</span><span>We mediate until you agree</span></span><span class="only-supplier"><span>Direct contract between you</span><span>We mediate until you agree</span></span></span>
+            </button>
+          </div>
+          <p class="nx-line">We find, assess &amp; connect you.</p>
+        </div>
       </div>
     </section>
 
     <div class="ticker" aria-label="What ALTIS SALES does">
       <ul class="ticker-track">
-        <li>Industrial sourcing</li><li>Buyers ↔ manufacturers</li><li>Supplier sourcing</li><li>Manufacturers assessed against project requirements</li>
-        <li>Second source</li><li>B2B business development</li><li>European market entry</li><li>Mediation until you agree</li><li>Direct contracts between you</li>
-        <li>Fees &amp; commissions agreed in advance</li><li>NDA on request</li><li>Independent</li><li>French &amp; English</li>
+        <li>Industrial sourcing<span class="tick-tip" hidden>We find the right supplier for your parts</span></li><li>Project owners ↔ suppliers<span class="tick-tip" hidden>We connect both sides and follow up until agreement</span></li><li>Supplier sourcing<span class="tick-tip" hidden>New suppliers matched to your drawings, quantities and lead times</span></li><li>Suppliers assessed against project requirements<span class="tick-tip" hidden>Capabilities, equipment, quality and references checked for your project</span></li>
+        <li>Second source<span class="tick-tip" hidden>A backup supplier to secure your supply</span></li><li>B2B business development<span class="tick-tip" hidden>We help suppliers win new projects</span></li><li>European market entry<span class="tick-tip" hidden>Project owners in Europe for suppliers based abroad</span></li><li>Mediation until you agree<span class="tick-tip" hidden>We stay involved until both sides agree</span></li><li>Direct contracts between you<span class="tick-tip" hidden>You sign, order and invoice directly with each other</span></li>
+        <li>Fees &amp; commissions agreed in advance<span class="tick-tip" hidden>No surprises: terms set in writing before we start</span></li><li>NDA on request<span class="tick-tip" hidden>Your drawings shared only under confidentiality</span></li><li>Independent<span class="tick-tip" hidden>Tied to no supplier: we suggest the best fit</span></li><li>French &amp; English<span class="tick-tip" hidden>We work in both languages</span></li>
       </ul>
     </div>
 
     <section id="sides" class="section">
-      <p class="eyebrow" data-reveal>Two sides, one introducer</p>
-      <h2 data-reveal>What we do for each side</h2>
+      <p class="eyebrow" data-reveal>What we do for you</p>
       <div class="sides">
-        <article class="side" data-reveal>
+        <article class="side only-client" data-reveal>
           <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 6l12 6v14l-12 6-12-6V12Z"/><path d="M28 30l14 14"/></svg>
-          <h3>For buyers</h3>
-          <p class="side-intro">We identify manufacturers matching your technical requirements, quantities and lead times.</p>
+          <h3>Industrial sourcing</h3>
+          <p class="side-intro">We identify suppliers matching your technical requirements, quantities and lead times.</p>
           <ul>
-            <li>Supplier sourcing: manufacturers matched to your parts, including a second source</li>
+            <li>Supplier sourcing: workshops matched to your parts, including a second source</li>
             <li>CNC machining and tooling suppliers</li>
             <li>Help on drawings, quantities, tolerances and lead times</li>
-            <li>Quotation and order directly with the manufacturer</li>
+            <li>Quotation and order directly with the supplier</li>
           </ul>
-          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer</a>
+          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a supplier</a>
         </article>
-        <article class="side side-dark" data-reveal>
+        <article class="side side-dark only-supplier" data-reveal>
           <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44V26l12-10v10l12-10v10l12-12v30Z"/><path d="M11 36h5M21 36h5M31 36h5"/></svg>
-          <h3>For manufacturers</h3>
-          <p class="side-intro">We help manufacturers connect with industrial buyers and develop long-term business partnerships.</p>
+          <h3>Business development</h3>
+          <p class="side-intro">We help suppliers win new projects and build long-term partnerships.</p>
           <ul>
-            <li>Industrial buyer acquisition and European market entry</li>
+            <li>New project owners and European market entry</li>
             <li>Qualified RFQ opportunities with drawings and key requirements</li>
             <li>Commercial relationship development, towards recurring business</li>
             <li>Commission-based introductions, terms agreed in advance</li>
           </ul>
-          <a href="#contact" class="btn btn-ghost js-quote" data-role="Manufacturer">Find industrial buyers</a>
+          <a href="#contact" class="btn btn-ghost js-quote" data-role="Manufacturer">Find new projects</a>
         </article>
+        <aside class="side side-switch only-client" data-reveal>
+          <h3>Are you a supplier?</h3>
+          <p>We also help CNC, precision and tooling workshops find new projects.</p>
+          <button type="button" class="btn btn-ghost js-view" data-view="supplier">See the supplier side</button>
+        </aside>
+        <aside class="side side-switch only-supplier" data-reveal>
+          <h3>Looking for a supplier?</h3>
+          <p>We also find and assess suppliers for project owners.</p>
+          <button type="button" class="btn btn-ghost js-view" data-view="client">See the project owner side</button>
+        </aside>
       </div>
     </section>
 
     <section class="section section-photo">
-      <p class="eyebrow" data-reveal>Fields we cover</p>
-      <h2 data-reveal>Click a field to see what's inside</h2>
-      <div class="fields" data-reveal>
-        <div class="field-tabs" role="tablist" aria-label="Fields we cover">
-          <button type="button" role="tab" id="tab-cnc" aria-controls="panel-cnc" aria-selected="true" tabindex="0"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 4h12l2 6 8 4 4 10-4 10-8 4-2 6H18l-2-6-8-4-4-10 4-10 8-4Z"/><path d="M24 16l8 8-8 8-8-8Z"/></svg><span>CNC machined parts</span></button>
-          <button type="button" role="tab" id="tab-mold" aria-controls="panel-mold" aria-selected="false" tabindex="-1"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l16 8v20l-16 8-16-8V14Z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg><span>Mold components</span></button>
-          <button type="button" role="tab" id="tab-tool" aria-controls="panel-tool" aria-selected="false" tabindex="-1"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 4l14 14-7 7-7-7L14 34l4 4-6 6-8-8 6-6 4 4 16-16-7-7Z"/></svg><span>Tooling &amp; special parts</span></button>
-        </div>
-        <div class="field-panel" role="tabpanel" id="panel-cnc" aria-labelledby="tab-cnc">
-          <h3>Precision CNC machined parts</h3>
-          <p>Precision manufacturing: milled and turned parts to drawing, from prototypes to series.</p>
-          <div class="field-lists">
-            <div><h4>Typical parts</h4><ul><li>Shafts, axles, pins</li><li>Housings, plates, brackets</li><li>Flanges, rings, bushings</li></ul></div>
-            <div><h4>Processes &amp; materials</h4><ul><li>Milling 3–5 axes, turning</li><li>Aluminium, steel, stainless, brass, titanium</li><li>POM, PA, PEEK</li></ul></div>
-          </div>
-          <p class="field-who"><strong>For:</strong> industrial manufacturers, engineering, maintenance</p>
-          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
-        </div>
-        <div class="field-panel" role="tabpanel" id="panel-mold" aria-labelledby="tab-mold">
-          <h3>Mold components &amp; standard parts</h3>
-          <p>Mold and tooling components, compatible with common catalog standards.</p>
-          <div class="field-lists">
-            <div><h4>Typical parts</h4><ul><li>Ejector pins and sleeves</li><li>Guide pillars and bushings</li><li>Inserts, cores, centering rings</li></ul></div>
-            <div><h4>Processes &amp; materials</h4><ul><li>Hardened tool steels</li><li>Precision grinding</li><li>Small series, replacements</li></ul></div>
-          </div>
-          <p class="field-who"><strong>For:</strong> mold makers, plastics processors</p>
-          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
-        </div>
-        <div class="field-panel" role="tabpanel" id="panel-tool" aria-labelledby="tab-tool">
-          <h3>Custom tooling &amp; special parts</h3>
-          <p>Tooling, spare and special parts from a drawing, a 3D model or a sample.</p>
-          <div class="field-lists">
-            <div><h4>Typical parts</h4><ul><li>Fixtures, jigs, gauges</li><li>Wear and spare parts</li><li>Parts copied from a sample</li></ul></div>
-            <div><h4>Processes &amp; materials</h4><ul><li>Machining, grinding, treatments</li><li>Single parts to small series</li><li>Reverse engineering</li></ul></div>
-          </div>
-          <p class="field-who"><strong>For:</strong> industrial manufacturers, maintenance</p>
-          <a href="#contact" class="btn js-quote" data-role="Buyer">Find a manufacturer for this</a>
-        </div>
+      <p class="eyebrow" data-reveal>Fields where we make introductions</p>
+      <div class="scope">
+        <article class="scope-card" data-reveal>
+          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 4h12l2 6 8 4 4 10-4 10-8 4-2 6H18l-2-6-8-4-4-10 4-10 8-4Z"/><path d="M24 16l8 8-8 8-8-8Z"/></svg>
+          <h3>CNC machining</h3>
+          <p>We connect project owners needing milled or turned parts with CNC workshops.</p>
+          <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>engineering, maintenance, industrial manufacturers</dd></div><div class="only-client"><dt>We find you</dt><dd>3–5 axis milling and turning workshops</dd></div></dl>
+        </article>
+        <article class="scope-card" data-reveal>
+          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l16 8v20l-16 8-16-8V14Z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg>
+          <h3>Mold components</h3>
+          <p>We connect mold makers and plastics processors with mold component suppliers.</p>
+          <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>mold makers, plastics processors</dd></div><div class="only-client"><dt>We find you</dt><dd>makers of ejectors, guide pillars, inserts</dd></div></dl>
+        </article>
+        <article class="scope-card" data-reveal>
+          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 4l14 14-7 7-7-7L14 34l4 4-6 6-8-8 6-6 4 4 16-16-7-7Z"/></svg>
+          <h3>Tooling &amp; special parts</h3>
+          <p>We connect production and maintenance teams with tooling workshops.</p>
+          <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>production and maintenance teams</dd></div><div class="only-client"><dt>We find you</dt><dd>fixtures, spare parts, reverse engineering</dd></div></dl>
+        </article>
       </div>
-    </section>
-
-    <!-- How it works: Buyer | ALTIS SALES | Manufacturer. The switch shows the buyer or the manufacturer workflow
-         (arrows and dot reverse); steps 01-02 sit on the arrows, 03-04 under ALTIS SALES. -->
-    <section id="approach" class="section section-dark how">
-      <p class="eyebrow" data-reveal>How it works</p>
-      <div class="how-view" role="group" aria-label="Point of view" data-reveal>
-        <button type="button" class="how-view-btn" data-view="buyer" aria-pressed="true">I'm a buyer</button>
-        <button type="button" class="how-view-btn" data-view="maker" aria-pressed="false">I'm a manufacturer</button>
-      </div>
-      <div class="fl" data-view="buyer" data-active="1" data-reveal>
-        <div class="fl-row">
-          <button type="button" class="fl-node fl-node-buyer" aria-describedby="fl-tip-buyer">
-            <span class="fl-disc"><svg class="icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 44V20L22 8v36M22 44V24l18 8v12M2 44h44"/><path d="M11 24h5M11 31h5M11 38h5M28 38h6"/></svg></span>
-            <span class="fl-name">Buyer</span>
-            <span class="how-tip fl-tip-above" id="fl-tip-buyer" role="tooltip"><strong>Buyer</strong><span>Your company</span><span>Drawings, quantities, lead time</span><span>Orders &amp; pays the manufacturer</span></span>
-          </button>
-          <div class="fl-link fl-link-left" aria-hidden="false">
-            <span class="fl-line" aria-hidden="true"><span class="fl-dot"></span></span>
-            <button type="button" class="fl-step fl-step-left" aria-describedby="fl-step-left-tip">
-              <b class="for-buyer">01</b><b class="for-maker">02</b>
-              <span class="fl-step-text"><span class="fl-step-title for-buyer">Request</span><span class="fl-step-title for-maker">Buyer search</span></span>
-              <span class="how-tip fl-tip-below" id="fl-step-left-tip" role="tooltip"><span class="for-buyer"><span>Drawings, quantities, lead time</span><span>NDA if wanted</span></span><span class="for-maker"><span>Qualified industrial buyers</span><span>In Europe and beyond</span></span></span>
-            </button>
-          </div>
-          <button type="button" class="fl-node fl-node-altis" aria-describedby="fl-tip-altis">
-            <span class="fl-disc"><span class="fl-ring" aria-hidden="true"></span><img src="assets/logo-mark.webp" alt="" width="96" height="84"></span>
-            <span class="fl-name">ALTIS SALES</span>
-            <span class="how-tip fl-tip-above" id="fl-tip-altis" role="tooltip"><strong>ALTIS SALES</strong><span class="fl-tip-desk"><span>Independent business introducer</span><span>Selects &amp; assesses manufacturers</span><span>Introduces both sides</span><span>Mediates until agreement</span></span><span class="fl-tip-phone"><span class="fl-mini"><b>03</b><span class="fl-mini-text"><span class="fl-mini-title">Introduction</span><span class="fl-mini-label">We put you in touch</span></span></span><span class="fl-mini"><b>04</b><span class="fl-mini-text"><span class="fl-mini-title">Agreement</span><span class="fl-mini-label">We mediate until you agree</span></span></span></span></span>
-          </button>
-          <div class="fl-link fl-link-right" aria-hidden="false">
-            <span class="fl-line" aria-hidden="true"><span class="fl-dot"></span></span>
-            <button type="button" class="fl-step fl-step-right" aria-describedby="fl-step-right-tip">
-              <b class="for-buyer">02</b><b class="for-maker">01</b>
-              <span class="fl-step-text"><span class="fl-step-title for-buyer">Selection</span><span class="fl-step-title for-maker">Presentation</span></span>
-              <span class="how-tip fl-tip-below" id="fl-step-right-tip" role="tooltip"><span class="for-buyer"><span>Manufacturers selected &amp; assessed</span><span>Capabilities and references</span></span><span class="for-maker"><span>Your processes, machines, certifications</span><span>Presented to industrial buyers</span></span></span>
-            </button>
-          </div>
-          <button type="button" class="fl-node fl-node-maker" aria-describedby="fl-tip-maker">
-            <span class="fl-disc"><svg class="icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44V26l12-10v10l12-10v10l12-12v30Z"/><path d="M11 36h5M21 36h5M31 36h5"/></svg></span>
-            <span class="fl-name">Manufacturer</span>
-            <span class="how-tip fl-tip-above" id="fl-tip-maker" role="tooltip"><strong>Manufacturer</strong><span>Assessed partner</span><span>Quotes you directly</span><span>Produces, invoices, delivers</span></span>
-          </button>
-        </div>
-        <div class="fl-under">
-            <button type="button" class="fl-step fl-step-3" aria-describedby="fl-step-3-tip">
-              <b class="for-buyer">03</b><b class="for-maker">03</b>
-              <span class="fl-step-text"><span class="fl-step-title for-buyer">Introduction</span><span class="fl-step-title for-maker">Introduction</span></span>
-              <span class="how-tip fl-tip-below" id="fl-step-3-tip" role="tooltip"><span class="for-buyer"><span>We put you in touch</span><span>Files shared under NDA</span></span><span class="for-maker"><span>We put you in touch</span><span>Files shared under NDA</span></span></span>
-            </button>
-            <button type="button" class="fl-step fl-step-4" aria-describedby="fl-step-4-tip">
-              <b class="for-buyer">04</b><b class="for-maker">04</b>
-              <span class="fl-step-text"><span class="fl-step-title for-buyer">Agreement</span><span class="fl-step-title for-maker">Agreement</span></span>
-              <span class="how-tip fl-tip-below" id="fl-step-4-tip" role="tooltip"><span class="for-buyer"><span>Contract between buyer &amp; manufacturer</span><span>We mediate until you agree</span></span><span class="for-maker"><span>Contract between buyer &amp; manufacturer</span><span>We mediate until you agree</span></span></span>
-            </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="files" data-reveal>
-        <div>
-          <p class="eyebrow">Start with what you have</p>
-          <h2>A drawing, a 3D model or a sample is enough</h2>
-          <p>Shared only with the manufacturers we introduce you to.</p>
-        </div>
-        <ul class="chips">
-          <li>PDF</li><li>DWG / DXF</li><li>STEP</li><li>IGES</li><li>STL</li><li>SolidWorks</li><li>Photos</li><li>Sample</li>
-        </ul>
-        <a href="#contact" class="btn js-quote" data-role="Buyer">Send my request</a>
+      <div class="scope-foot" data-reveal>
+        <p class="only-client">Another process? Ask us: we also search beyond these fields.</p>
+        <p class="only-supplier">Your workshop works in one of these fields? We present it to qualified project owners.</p>
+        <a href="#contact" class="btn js-quote only-client" data-role="Buyer">Find a supplier</a>
+        <a href="#contact" class="btn js-quote only-supplier" data-role="Manufacturer">Present my workshop</a>
       </div>
     </section>
 
@@ -249,62 +192,18 @@
       <div class="about">
         <div data-reveal>
           <p class="eyebrow">About ALTIS SALES</p>
-          <h2>An independent B2B intermediary</h2>
-          <p>Based in France, ALTIS SALES is an independent B2B intermediary specializing in industrial sourcing and international business development.</p>
-          <p><strong>We never buy, resell or invoice parts.</strong> Price, quality and delivery are agreed directly between buyer and manufacturer.</p>
-          <figure class="role-photo"><img src="assets/photo-handshake.webp" alt="A buyer and a manufacturer shaking hands after agreeing" width="800" height="533" loading="lazy"></figure>
-        </div>
-        <div class="audience" data-reveal>
-          <h3>We work with</h3>
-          <ul>
-            <li>Procurement and purchasing</li>
-            <li>Engineering and R&amp;D</li>
-            <li>Mold makers and plastics processors</li>
-            <li>Industrial manufacturers</li>
-            <li>Manufacturers seeking European customers</li>
+          <p class="about-lead">ALTIS SALES is an independent business introducer based in France.</p>
+          <ul class="about-points">
+            <li><strong>Independent</strong> Tied to no supplier or project owner: we suggest the best fit for each project.</li>
+            <li><strong>Europe and beyond</strong> Introductions in France, across Europe and internationally, in French or English.</li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <section id="faq" class="section">
-      <p class="eyebrow" data-reveal>FAQ</p>
-      <h2 data-reveal>Frequently asked questions</h2>
-      <div class="faq" data-reveal>
-        <details>
-          <summary>Are you a manufacturer or a reseller?</summary>
-          <p>Neither. We find, introduce and mediate. We don't make, buy or resell parts.</p>
-        </details>
-        <details>
-          <summary>I'm a manufacturer. Can you help me find industrial buyers?</summary>
-          <p>Yes. We help manufacturers identify qualified industrial buyers, develop business opportunities and establish long-term partnerships across Europe and beyond.</p>
-        </details>
-        <details>
-          <summary>Who do I sign the contract with?</summary>
-          <p>Contracts are generally signed directly between buyers and manufacturers. ALTIS SALES acts as an independent intermediary.</p>
-        </details>
-        <details>
-          <summary>How are you paid?</summary>
-          <p>Transparent sourcing fees and commercial commissions, agreed in advance according to the services provided: industrial sourcing for buyers, introductions and business development for manufacturers.</p>
-        </details>
-        <details>
-          <summary>How do you choose the manufacturers?</summary>
-          <p>We assess manufacturers based on production capabilities, equipment, quality standards, references and project requirements.</p>
-        </details>
-        <details>
-          <summary>Will my drawings stay confidential?</summary>
-          <p>Yes. Shared only with the manufacturers we introduce, under NDA if you wish.</p>
-        </details>
-        <details>
-          <summary>Which files can I send?</summary>
-          <p>PDF, DWG/DXF, STEP, IGES, STL, SolidWorks, photos or a sample. Large files via a transfer link.</p>
-        </details>
+        <figure class="role-photo" data-reveal><img src="assets/photo-handshake.webp" alt="A project owner and a supplier shaking hands after agreeing" width="800" height="533" loading="lazy"></figure>
       </div>
     </section>
 
     <section id="contact" class="section contact section-dark">
       <div class="contact-glow" aria-hidden="true"></div>
-      <p class="eyebrow" data-reveal>Contact</p>
       <h2 data-reveal>An industrial project or a business opportunity? Let's talk.</h2>
       <p data-reveal>A few lines are enough. We reply quickly, with no obligation.</p>
       <div class="person" data-reveal>
@@ -317,11 +216,51 @@
         <button type="button" class="btn btn-ghost btn-linkedin js-linkedin"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span>Connect on LinkedIn</span></button>
       </div>
       <p class="contact-lines" data-reveal>
-        <a class="btn js-quote" href="#contact" data-role="Buyer">Find a manufacturer</a>
-        <a class="btn btn-ghost js-quote" href="#contact" data-role="Manufacturer">Find industrial buyers</a>
+        <a class="btn js-quote only-client" href="#contact" data-role="Buyer">Find a supplier</a>
+        <a class="btn js-quote only-supplier" href="#contact" data-role="Manufacturer">Find new projects</a>
         <button type="button" class="btn btn-ghost js-phone">Show phone number</button>
       </p>
     </section>
+
+    <section id="faq" class="section">
+      <p class="eyebrow" data-reveal>FAQ</p>
+      <h2 data-reveal>Frequently asked questions</h2>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Are you a manufacturer or a reseller?</summary>
+          <p>Neither. We find, introduce and mediate. We don't make, buy or resell parts.</p>
+        </details>
+        <details class="only-supplier">
+          <summary>I'm a supplier. Can you help me find new projects?</summary>
+          <p>Yes. We help suppliers identify qualified project owners, develop business opportunities and build long-term partnerships across Europe and beyond.</p>
+        </details>
+        <details class="only-supplier">
+          <summary>What do you need from me?</summary>
+          <p>Your company presentation: processes, machines, certifications and references.</p>
+        </details>
+        <details>
+          <summary>Who do I sign the contract with?</summary>
+          <p>Contracts are generally signed directly between project owners and suppliers. ALTIS SALES acts as an independent intermediary.</p>
+        </details>
+        <details>
+          <summary>How are you paid?</summary>
+          <p>Transparent sourcing fees and commercial commissions, agreed in advance according to the services provided: industrial sourcing for project owners, introductions and business development for suppliers.</p>
+        </details>
+        <details class="only-client">
+          <summary>How do you choose the suppliers?</summary>
+          <p>We assess suppliers based on production capabilities, equipment, quality standards, references and project requirements.</p>
+        </details>
+        <details class="only-client">
+          <summary>Will my drawings stay confidential?</summary>
+          <p>Yes. Shared only with the suppliers we introduce, under NDA if you wish.</p>
+        </details>
+        <details class="only-client">
+          <summary>Which files can I send?</summary>
+          <p>PDF, DWG/DXF, STEP, IGES, STL, SolidWorks, photos or a sample. Large files via a transfer link.</p>
+        </details>
+      </div>
+    </section>
+
   </main>
 
   <a href="#contact" class="btn floating-cta js-quote">Contact us</a>
@@ -388,8 +327,8 @@
       <p class="form-intro">Leave your details and we will get back to you shortly.</p>
       <fieldset class="role-choice">
         <legend>I am</legend>
-        <label><input type="radio" name="profil" value="Buyer" checked> looking for a manufacturer</label>
-        <label><input type="radio" name="profil" value="Manufacturer"> a manufacturer</label>
+        <label><input type="radio" name="profil" value="Buyer" checked> looking for a supplier</label>
+        <label><input type="radio" name="profil" value="Manufacturer"> a supplier</label>
       </fieldset>
       <label>Company *<input name="entreprise" required maxlength="150" autocomplete="organization"></label>
       <label>Business email *<input name="email" type="email" required maxlength="150" autocomplete="email"></label>
@@ -425,8 +364,8 @@
     </div>
   </dialog>
 
-  <script src="assets/motion.js?v=13"></script>
-  <script src="assets/i18n.js?v=17"></script>
-  <script src="assets/contact.js?v=10"></script>
+  <script src="assets/motion.js?v=16"></script>
+  <script src="assets/i18n.js?v=28"></script>
+  <script src="assets/contact.js?v=11"></script>
 </body>
 </html>
