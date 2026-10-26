@@ -365,6 +365,8 @@
     "Europe and beyond": "Europe et international",
     "Introductions in France, across Europe and internationally, in French or English.": "Des mises en relation en France, en Europe et à l'international, en français ou en anglais.",
     "A project owner and a supplier shaking hands after agreeing": "Un porteur de projet et un fournisseur se serrent la main après un accord",
+    "Request an introduction": "Demander une mise en relation",
+    "The contract is signed directly between the project owner and the supplier. ALTIS SALES prepares the ground: we clarify the requirements, align both sides on price, quality and lead times, and stay involved until you agree.": "Le contrat est signé directement entre le porteur de projet et le fournisseur. ALTIS SALES prépare le terrain : nous clarifions le besoin, alignons les deux parties sur le prix, la qualité et les délais, et restons présents jusqu'à l'accord.",
     // Attributs (aria-label, alt, title)
     "Point of view": "Point de vue",
     "Close": "Fermer",

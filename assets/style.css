@@ -1046,3 +1046,29 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
 .about { grid-template-columns: 1fr 1fr; align-items: center; }
 .about .role-photo { margin: 0; }
 @media (max-width: 900px) { .about { grid-template-columns: 1fr; } }
+
+/* Domaines v4 : carte interactive (connecteur animé au survol, clic = demande pour ce domaine) */
+.scope-card { position: relative; display: flex; flex-direction: column; cursor: pointer; }
+.scope-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.scope-link { width: 132px; height: 28px; overflow: visible; }
+.scope-link line { stroke: rgba(203, 165, 113, 0.35); stroke-width: 1.5; transition: stroke 0.3s; }
+.scope-end, .scope-hub { fill: var(--navy-2); stroke: rgba(203, 165, 113, 0.55); stroke-width: 1.5; transition: stroke 0.3s, filter 0.3s; }
+.scope-a { fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linejoin: miter; }
+.scope-dot { fill: #f6e2bd; opacity: 0; filter: drop-shadow(0 0 4px rgba(246, 226, 189, 0.9)); }
+@keyframes scope-run { 0% { transform: translateX(0); } 45%, 55% { transform: translateX(42px); } 100% { transform: translateX(94px); } }
+.scope-card:hover .scope-link line, .scope-card:focus-within .scope-link line { stroke: var(--gold-light); }
+.scope-card:hover .scope-end, .scope-card:hover .scope-hub, .scope-card:focus-within .scope-end, .scope-card:focus-within .scope-hub { stroke: var(--gold-light); filter: drop-shadow(0 0 5px rgba(241, 214, 166, 0.55)); }
+.scope-card:hover .scope-dot, .scope-card:focus-within .scope-dot { opacity: 1; animation: scope-run 1.8s ease-in-out infinite; }
+[data-view="supplier"] .scope-card .scope-dot { animation-direction: reverse; }
+.scope-card:hover .icon, .scope-card:focus-within .icon { transform: rotate(-10deg) scale(1.08); }
+.scope-card .icon { transition: transform 0.3s; }
+.scope-sides { flex: 1; }
+.scope-go { align-self: flex-start; margin-top: 16px; padding: 0; border: 0; background: none; color: var(--gold-light); font: 700 0.9rem "IBM Plex Sans", "Segoe UI", sans-serif; cursor: pointer; }
+.scope-go span { display: inline-block; transition: transform 0.25s; }
+.scope-card:hover .scope-go span, .scope-go:focus-visible span { transform: translateX(5px); }
+.scope-go::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.scope-go:focus-visible { outline: none; }
+.scope-card:focus-within { border-color: var(--gold); }
+@media (prefers-reduced-motion: reduce) { .scope-card .scope-dot { animation: none !important; } }
+/* Cartes des domaines : plus de lien de demande, la carte n'est pas cliquable */
+.scope-card { cursor: default; }

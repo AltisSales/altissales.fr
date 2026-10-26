@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#14181b">
   <link rel="icon" type="image/png" href="assets/logo-mark.png">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=71">
+  <link rel="stylesheet" href="assets/style.css?v=73">
   <script>document.documentElement.classList.add("js");try{document.documentElement.dataset.view=sessionStorage.getItem("altis-view")==="supplier"?"supplier":"client";}catch(e){document.documentElement.dataset.view="client";}</script>
 </head>
 <body>
@@ -162,19 +162,19 @@
       <p class="eyebrow" data-reveal>Fields where we make introductions</p>
       <div class="scope">
         <article class="scope-card" data-reveal>
-          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 4h12l2 6 8 4 4 10-4 10-8 4-2 6H18l-2-6-8-4-4-10 4-10 8-4Z"/><path d="M24 16l8 8-8 8-8-8Z"/></svg>
+          <div class="scope-top"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 4h12l2 6 8 4 4 10-4 10-8 4-2 6H18l-2-6-8-4-4-10 4-10 8-4Z"/><path d="M24 16l8 8-8 8-8-8Z"/></svg><svg class="scope-link" viewBox="0 0 132 28" aria-hidden="true"><circle class="scope-end" cx="10" cy="14" r="7"/><line x1="18" y1="14" x2="54" y2="14"/><circle class="scope-hub" cx="66" cy="14" r="10"/><path class="scope-a" d="M60 19l6-10 6 10M63 15h6"/><line x1="77" y1="14" x2="112" y2="14"/><rect class="scope-end" x="114" y="7" width="14" height="14" rx="3"/><circle class="scope-dot" cx="18" cy="14" r="3"/></svg></div>
           <h3>CNC machining</h3>
           <p>We connect project owners needing milled or turned parts with CNC workshops.</p>
           <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>engineering, maintenance, industrial manufacturers</dd></div><div class="only-client"><dt>We find you</dt><dd>3–5 axis milling and turning workshops</dd></div></dl>
         </article>
         <article class="scope-card" data-reveal>
-          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l16 8v20l-16 8-16-8V14Z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg>
+          <div class="scope-top"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l16 8v20l-16 8-16-8V14Z"/><path d="M8 14l16 8 16-8M24 22v20"/></svg><svg class="scope-link" viewBox="0 0 132 28" aria-hidden="true"><circle class="scope-end" cx="10" cy="14" r="7"/><line x1="18" y1="14" x2="54" y2="14"/><circle class="scope-hub" cx="66" cy="14" r="10"/><path class="scope-a" d="M60 19l6-10 6 10M63 15h6"/><line x1="77" y1="14" x2="112" y2="14"/><rect class="scope-end" x="114" y="7" width="14" height="14" rx="3"/><circle class="scope-dot" cx="18" cy="14" r="3"/></svg></div>
           <h3>Mold components</h3>
           <p>We connect mold makers and plastics processors with mold component suppliers.</p>
           <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>mold makers, plastics processors</dd></div><div class="only-client"><dt>We find you</dt><dd>makers of ejectors, guide pillars, inserts</dd></div></dl>
         </article>
         <article class="scope-card" data-reveal>
-          <svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 4l14 14-7 7-7-7L14 34l4 4-6 6-8-8 6-6 4 4 16-16-7-7Z"/></svg>
+          <div class="scope-top"><svg class="icon icon-b" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 4l14 14-7 7-7-7L14 34l4 4-6 6-8-8 6-6 4 4 16-16-7-7Z"/></svg><svg class="scope-link" viewBox="0 0 132 28" aria-hidden="true"><circle class="scope-end" cx="10" cy="14" r="7"/><line x1="18" y1="14" x2="54" y2="14"/><circle class="scope-hub" cx="66" cy="14" r="10"/><path class="scope-a" d="M60 19l6-10 6 10M63 15h6"/><line x1="77" y1="14" x2="112" y2="14"/><rect class="scope-end" x="114" y="7" width="14" height="14" rx="3"/><circle class="scope-dot" cx="18" cy="14" r="3"/></svg></div>
           <h3>Tooling &amp; special parts</h3>
           <p>We connect production and maintenance teams with tooling workshops.</p>
           <dl class="scope-sides"><div class="only-supplier"><dt>We introduce you to</dt><dd>production and maintenance teams</dd></div><div class="only-client"><dt>We find you</dt><dd>fixtures, spare parts, reverse engineering</dd></div></dl>
@@ -225,10 +225,6 @@
       <p class="eyebrow" data-reveal>FAQ</p>
       <h2 data-reveal>Frequently asked questions</h2>
       <div class="faq" data-reveal>
-        <details>
-          <summary>Are you a manufacturer or a reseller?</summary>
-          <p>Neither. We find, introduce and mediate. We don't make, buy or resell parts.</p>
-        </details>
         <details class="only-supplier">
           <summary>I'm a supplier. Can you help me find new projects?</summary>
           <p>Yes. We help suppliers identify qualified project owners, develop business opportunities and build long-term partnerships across Europe and beyond.</p>
@@ -239,11 +235,7 @@
         </details>
         <details>
           <summary>Who do I sign the contract with?</summary>
-          <p>Contracts are generally signed directly between project owners and suppliers. ALTIS SALES acts as an independent intermediary.</p>
-        </details>
-        <details>
-          <summary>How are you paid?</summary>
-          <p>Transparent sourcing fees and commercial commissions, agreed in advance according to the services provided: industrial sourcing for project owners, introductions and business development for suppliers.</p>
+          <p>The contract is signed directly between the project owner and the supplier. ALTIS SALES prepares the ground: we clarify the requirements, align both sides on price, quality and lead times, and stay involved until you agree.</p>
         </details>
         <details class="only-client">
           <summary>How do you choose the suppliers?</summary>
@@ -364,7 +356,7 @@
   </dialog>
 
   <script src="assets/motion.js?v=16"></script>
-  <script src="assets/i18n.js?v=28"></script>
-  <script src="assets/contact.js?v=11"></script>
+  <script src="assets/i18n.js?v=30"></script>
+  <script src="assets/contact.js?v=13"></script>
 </body>
 </html>
