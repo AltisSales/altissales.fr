@@ -1072,3 +1072,6 @@ html[lang="fr"] .legal-notice .lang-en, html:not([lang="fr"]) .legal-notice .lan
 @media (prefers-reduced-motion: reduce) { .scope-card .scope-dot { animation: none !important; } }
 /* Cartes des domaines : plus de lien de demande, la carte n'est pas cliquable */
 .scope-card { cursor: default; }
+
+/* Lucide icons use a 24-unit box: thinner stroke so they match the 48-unit site icons. */
+.icon.icon-b.icon-lucide { stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
